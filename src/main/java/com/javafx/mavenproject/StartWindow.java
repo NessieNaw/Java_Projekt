@@ -1,5 +1,8 @@
 package com.javafx.mavenproject;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -18,18 +21,33 @@ public class StartWindow
     @FXML private javafx.scene.control.Button kolorowy;
 
 
-    public int chooseFile()
-    {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
+    public int chooseFile() throws Exception {
+        Stage stage = (Stage) binarny.getScene().getWindow();
+        System.out.println(stage);
+        Choose(stage);
+        openPanel(stage);
 
 
         return 0;
     }
-    public void Choose()
+    public void openPanel(Stage stage) throws Exception
+    {
+        String fxmlFile = "/fxml/panel.fxml";
+        FXMLLoader loader = new FXMLLoader();
+        Parent rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
+        Scene scene = new Scene(rootNode, 600,600);
+        scene.getStylesheets().add("/styles/styles.css");
+
+        stage.setTitle("Panel window");
+        stage.setScene(scene);
+        stage.show();
+    }
+    public void Choose(Stage stage)
     {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-       // fileChooser.showOpenDialog(stage);
+        fileChooser.showOpenDialog(stage);
+
     }
     public void Close()
     {

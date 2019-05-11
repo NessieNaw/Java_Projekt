@@ -20,9 +20,9 @@
 
 
     <Button fx:id="closeButton" layoutX="174.0" layoutY="308.0" onAction="#Close" text="Zamknij" />
-    <Button fx:id="binarny" layoutX="12.0" layoutY="134.0" onAction="#chooseFile" text="Binarny"> </Button>
-    <Button fx:id="szary" layoutX="174.0" layoutY="134.0" onAction="#chooseFile" text="Szary"> </Button>
-    <Button fx:id="kolorowy" layoutX="336.0" layoutY="134.0" onAction="#chooseFile" text="Barwny"> </Button>
+    <Button fx:id="binarny" layoutX="12.0" layoutY="134.0" onAction="#bin" text="Binarny" />
+    <Button fx:id="szary" layoutX="174.0" layoutY="134.0" onAction="#sz" text="Szary"/>
+    <Button fx:id="kolorowy" layoutX="336.0" layoutY="134.0" onAction="#kol" text="Barwny"/>
 
 
 </AnchorPane>

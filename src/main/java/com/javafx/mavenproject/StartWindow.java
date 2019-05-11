@@ -35,8 +35,8 @@ public class StartWindow
         String fxmlFile = "/fxml/panel.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
-        Scene scene = new Scene(rootNode, 600,600);
-        scene.getStylesheets().add("/styles/styles.css");
+        Scene scene = new Scene(rootNode, 700,500);
+        scene.getStylesheets().add("/styles/style2.css");
 
         stage.setTitle("Panel window");
         stage.setScene(scene);

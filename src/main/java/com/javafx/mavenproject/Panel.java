@@ -25,7 +25,7 @@ import java.io.File;
 import java.nio.Buffer;
 
 
-public class Panel
+public class Panel extends StartWindow
 {
 
     @FXML private ImageView imageView;
@@ -49,13 +49,10 @@ public class Panel
     @FXML private TextField promien;
 
     private int activeButton;
-    private File obraz;
 
-    public Panel(File obraz) {
-        this.obraz = obraz;
-    }
-
-    public Panel() {
+    @FXML
+    public void initialize() {
+        imageView.setImage(new Image(StartWindow.obraz.toURI().toString()));
     }
 
     public void ShowImage(File obraz)
@@ -88,8 +85,7 @@ public class Panel
             case 0:
                 System.out.println("In transformations");
                 try {
-                    BufferedImage bufferedImage = ImageIO.read(new File("C:\\Users\\MKT9\\Pictures\\nm2HM.png"));
-                    //BufferedImage bufferedImage = ImageIO.read(this.obraz); //tutaj nie działa
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz); //tutaj nie działa
                     OpenAndClose op = new OpenAndClose(bufferedImage);
                     System.out.println(bufferedImage.toString());
                     int[][] pixels = op.convertTo2DArray(bufferedImage);

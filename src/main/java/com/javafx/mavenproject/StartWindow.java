@@ -19,7 +19,11 @@ public class StartWindow
     @FXML private javafx.scene.control.Button kolorowy;
 
     int which = 0;
-    File obraz;
+    static File obraz;
+
+    public File getObraz() {
+        return obraz;
+    }
 
     public int chooseFile() throws Exception
     {
@@ -48,15 +52,14 @@ public class StartWindow
     }
     public void openPanel(Stage stage) throws Exception
     {
-        Panel pan = new Panel(obraz);
-        pan.ShowImage(obraz);
+        //Panel pan = new Panel(obraz);
+        //pan.ShowImage(obraz);
 
         String fxmlFile = "/fxml/panel.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
         Scene scene = new Scene(rootNode, 700,500);
         scene.getStylesheets().add("/styles/style2.css");
-
 
         stage.setTitle("Panel window");
         stage.setScene(scene);

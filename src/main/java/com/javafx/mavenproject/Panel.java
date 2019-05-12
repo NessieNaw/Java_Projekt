@@ -1,5 +1,6 @@
 package com.javafx.mavenproject;
 
+import com.javafx.mavenproject.morfologicalTransfLibrary.Kirsch;
 import com.javafx.mavenproject.morfologicalTransfLibrary.Monochrome;
 import com.javafx.mavenproject.morfologicalTransfLibrary.OpenAndClose;
 import javafx.embed.swing.SwingFXUtils;
@@ -52,6 +53,7 @@ public class Panel extends StartWindow
     @FXML private TextField promien;
 
     private int activeButton;
+    private BufferedImage bufferedImage;
 
     @FXML
     public void initialize() {
@@ -219,6 +221,15 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 8: //filtracja kircha
+                try {
+                    bufferedImage = Kirsch.kirschFilter(ImageIO.read(StartWindow.obraz));
+
+                    Image img = SwingFXUtils.toFXImage(bufferedImage, null);
+                    imageView.setImage(img);
+                }
+                catch(IOException e) {
+                    System.out.println(e.getMessage());
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 9: //zamkniecie elem. kołowym

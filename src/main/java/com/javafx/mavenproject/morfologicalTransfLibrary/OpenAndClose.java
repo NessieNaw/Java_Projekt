@@ -10,9 +10,9 @@ public class OpenAndClose {
         this.image = image;
     }
 
-    public BufferedImage dilate(int[][] pixels, int radius) {
-            int width = pixels[0].length;
-            int height = pixels.length;
+    public BufferedImage dilate(int[][] pixelsTab, int radius) {
+            int width = pixelsTab[0].length;
+            int height = pixelsTab.length;
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
 
             for (int y = radius; y < height - radius; y++) {
@@ -22,7 +22,7 @@ public class OpenAndClose {
                     for (int i = -radius; i < radius; i++) {
                         for (int j = -radius; j < radius; j++) {
                             if (i * i + j * j <= radius * radius) {
-                                int pixel = pixels[j + y][i + x];
+                                int pixel = pixelsTab[j + y][i + x];
                                 int value = (pixel & 0xff);
                                 int currentRGB = (value << 16) | (value << 8) | value;
 
@@ -37,9 +37,9 @@ public class OpenAndClose {
             return img;
         }
 
-        public BufferedImage erode(int[][] pixels, int radius) {
-            int width = pixels[0].length;
-            int height = pixels.length;
+        public BufferedImage erode(int[][] pixelsTab, int radius) {
+            int width = pixelsTab[0].length;
+            int height = pixelsTab.length;
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
             ;
 
@@ -50,7 +50,7 @@ public class OpenAndClose {
                     for (int i = -radius; i < radius; i++) {
                         for (int j = -radius; j < radius; j++) {
                             if (i * i + j * j <= radius * radius) {
-                                int pixel = pixels[j + y][i + x];
+                                int pixel = pixelsTab[j + y][i + x];
                                 int value = (pixel & 0xff);
                                 int currentRGB = (value << 16) | (value << 8) | value;
 
@@ -66,8 +66,8 @@ public class OpenAndClose {
             return img;
         }
 
-    public BufferedImage Opening(int[][] pixels, int radius) {
-        int[][] tmpPixels = convertTo2DArray(erode(pixels, radius));
+    public BufferedImage Opening(int[][] pixelsTab, int radius) {
+        int[][] tmpPixels = convertTo2DArray(erode(pixelsTab, radius));
         tmpPixels = convertTo2DArray(dilate(tmpPixels, radius));
         BufferedImage img = new BufferedImage(tmpPixels[0].length - 2*radius, tmpPixels.length - 2*radius, BufferedImage.TYPE_3BYTE_BGR);
         int rgb;
@@ -77,7 +77,7 @@ public class OpenAndClose {
                 int pixel;
 
                 if (y < 2*radius || x < 2*radius)
-                    pixel = pixels[y][x];
+                    pixel = pixelsTab[y][x];
                 else
                     pixel = tmpPixels[y][x];
 
@@ -89,8 +89,8 @@ public class OpenAndClose {
         return img;
     }
 
-    public BufferedImage Closing(int[][] pixels, int radius) {
-        int[][] tmpPixels = convertTo2DArray(dilate(pixels, radius));
+    public BufferedImage Closing(int[][] pixelsTab, int radius) {
+        int[][] tmpPixels = convertTo2DArray(dilate(pixelsTab, radius));
         tmpPixels = convertTo2DArray(erode(tmpPixels, radius));
         BufferedImage img = new BufferedImage(tmpPixels[0].length - 2*radius, tmpPixels.length - 2*radius, BufferedImage.TYPE_3BYTE_BGR);
         int rgb;
@@ -100,7 +100,7 @@ public class OpenAndClose {
                 int pixel;
 
                 if (y < 2*radius || x < 2*radius)
-                    pixel = pixels[y][x];
+                    pixel = pixelsTab[y][x];
                 else
                     pixel = tmpPixels[y][x];
 
@@ -112,7 +112,7 @@ public class OpenAndClose {
         return img;
     }
 
-    public int[][] convertTo2DArray(BufferedImage image) {
+    public int[][] convertTo2DArray(BufferedImage image) { //nie jestem w 100% pewna, czy to działa
         int width = image.getWidth();
         int height = image.getHeight();
 

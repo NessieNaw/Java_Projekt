@@ -4,15 +4,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<!--
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.mavenproject.StartWindow">
-
-    <Label text="Choose file" /> <TextField fx:id="firstNameField" prefColumnCount="30" MigPane.cc="growx, wrap" />
-    <Button layoutY="39.0" onAction="#sayHello" text="Binary" MigPane.cc="skip, gap :push, gaptop 15, wrap" />
-
-</AnchorPane>
--->
-
 <AnchorPane id="rootPane" prefHeight="400.0" prefWidth="600.0" styleClass="main-panel" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.mavenproject.StartWindow">
 
     <Label layoutX="174.0" layoutY="15.0" text="Wprowadź obraz" />

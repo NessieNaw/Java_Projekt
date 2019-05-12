@@ -13,23 +13,33 @@
    <children>
       <Button id="otwarcie" layoutY="2.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="63.0" text="Otwarcie" />
       <Button id="zamkniecie" layoutX="63.0" layoutY="2.0" mnemonicParsing="false" text="Zamknięcie" />
-      <ImageView fitHeight="411.0" fitWidth="467.0" layoutX="1.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField layoutX="474.0" layoutY="275.0" />
-      <TextField layoutX="474.0" layoutY="106.0" />
-      <TextField layoutX="474.0" layoutY="148.0" />
+      <ImageView fx:id="imageView" fitHeight="411.0" fitWidth="467.0" layoutX="1.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
+
       <Label layoutX="471.0" layoutY="62.0" text="Parametry:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="471.0" layoutY="258.0" text="parametr" />
-      <Label layoutX="471.0" layoutY="89.0" text="parametr" />
-      <Label layoutX="471.0" layoutY="131.0" text="parametr" />
-      <ScrollBar layoutX="634.0" layoutY="62.0" orientation="VERTICAL" prefHeight="418.0" prefWidth="14.0" />
-      <Label layoutX="471.0" layoutY="173.0" text="parametr" />
-      <Label layoutX="471.0" layoutY="215.0" text="parametr" />
-      <TextField layoutX="474.0" layoutY="190.0" />
-      <TextField layoutX="474.0" layoutY="233.0" />
+
+      <Label layoutX="471.0" layoutY="258.0" text="prog binaryzacji" />
+      <TextField fx:id="progbinaryzacji" layoutX="474.0" layoutY="275.0" />
+      <Label  layoutX="471.0" layoutY="89.0" text="lamana A" />
+      <TextField fx:id="lamanaA" layoutX="474.0" layoutY="106.0" />
+      <Label  layoutX="471.0" layoutY="131.0" text="lamana B" />
+      <TextField fx:id="lamanaB" layoutX="474.0" layoutY="148.0" />
+      <Label  layoutX="471.0" layoutY="173.0" text="lamana C" />
+      <TextField fx:id="lamanaC" layoutX="474.0" layoutY="190.0" />
+      <Label  layoutX="471.0" layoutY="215.0" text="okno VMF" />
+      <TextField fx:id="oknovmf" layoutX="474.0" layoutY="233.0" />
+      <Label  layoutX="471.0" layoutY="300.0" text="promien" />
+      <TextField fx:id="promien" layoutX="474.0" layoutY="317.0" />
+      <Label layoutX="471.0" layoutY="342.0" text="parametr" />
+      <TextField layoutX="474.0" layoutY="359.0" />
+      <Label layoutX="471.0" layoutY="384.0" text="parametr" />
+      <TextField layoutX="474.0" layoutY="401.0" />
+
+
+
       <Button id="monochromatyzacja" layoutX="139.0" layoutY="2.0" mnemonicParsing="false" text="Monochromatyzacja" />
       <Button id="erozja" layoutX="263.0" layoutY="2.0" mnemonicParsing="false" text="Erozja" />
       <Button id="dylacja" layoutX="311.0" layoutY="2.0" mnemonicParsing="false" prefHeight="9.0" prefWidth="54.0" text="Dylacja" />
@@ -41,13 +51,8 @@
       <Button id="odbiciesymetryczne" layoutX="284.0" layoutY="28.0" mnemonicParsing="false" text="Odbicie symetryczne" />
       <Button id="odlegloscgeodezyjna" layoutX="410.0" layoutY="28.0" mnemonicParsing="false" text="Mapa odległości geodezyjnej" />
       <Button id="binaryzacja" layoutX="578.0" layoutY="28.0" mnemonicParsing="false" text="Binaryzacja" />
-      <Label layoutX="471.0" layoutY="300.0" text="parametr" />
-      <Label layoutX="471.0" layoutY="342.0" text="parametr" />
-      <Label layoutX="471.0" layoutY="384.0" text="parametr" />
-      <TextField layoutX="474.0" layoutY="317.0" />
-      <TextField layoutX="474.0" layoutY="359.0" />
-      <TextField layoutX="474.0" layoutY="401.0" />
-      <Button layoutX="475.0" layoutY="438.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="149.0" text="Analizuj">
+
+      <Button fx:id="analizuj" onAction="#params" layoutX="475.0" layoutY="438.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="149.0" text="Analizuj">
          <font>
             <Font size="18.0" />
          </font>

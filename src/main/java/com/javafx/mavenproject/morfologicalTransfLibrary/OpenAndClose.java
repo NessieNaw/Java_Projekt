@@ -3,10 +3,12 @@ package com.javafx.mavenproject.morfologicalTransfLibrary;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
-public class OpenAndClose {
+public class OpenAndClose
+{
     public BufferedImage image;
 
-    public OpenAndClose(BufferedImage image) {
+    public OpenAndClose(BufferedImage image)
+    {
         this.image = image;
     }
 

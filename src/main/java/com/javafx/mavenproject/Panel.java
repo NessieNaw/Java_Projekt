@@ -21,7 +21,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -211,7 +210,7 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 5: //normalizacja
-               break;
+                break;
             //---------------------------------------------------------------------------------------------
             case 6: //VMF
                 break;
@@ -230,14 +229,14 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 11: //mapa odl geodezyjnej
                 break;
-            //--------------------------------------------------------------------------------------------- 
+            //---------------------------------------------------------------------------------------------
             case 12: //binaryzacja
                 try {
                     Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
 
-                   // mono.image = mono.ToBinary(bufferedImage);
+                    mono.image = mono.ToBinary(bufferedImage);
 
                     Image img  = SwingFXUtils.toFXImage(mono.image, null);
                     imageView.setImage(img);

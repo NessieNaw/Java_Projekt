@@ -1,5 +1,6 @@
 package com.javafx.mavenproject;
 
+import com.javafx.mavenproject.morfologicalTransfLibrary.Monochrome;
 import com.javafx.mavenproject.morfologicalTransfLibrary.OpenAndClose;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
@@ -80,8 +81,6 @@ public class Panel extends StartWindow
         String oknoVMF = oknovmf.getText();
         String pr = promien.getText();
 
-        System.out.println(lamA+ lamB+ lamC+ oknoVMF+ progBin+ pr );
-
         switch(activeButton) {
             case 0: //otwarcie
                 System.out.println("In transformations");
@@ -95,7 +94,7 @@ public class Panel extends StartWindow
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
-                    System.out.println("Cought exception: " + e.getMessage());
+                    System.out.println("Caught exception: " + e.getMessage());
                 }
                 catch (Exception e) {
                     System.out.println("Radius cannot be <= 0!");
@@ -113,7 +112,7 @@ public class Panel extends StartWindow
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
-                    System.out.println("Cought exception: " + e.getMessage());
+                    System.out.println("Caught exception: " + e.getMessage());
                 }
                 catch (Exception e) {
                     System.out.println("Radius cannot be <= 0!");
@@ -121,6 +120,20 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 2: //monochromatyzacja
+                try {
+                    Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
+
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+
+                    mono.image = mono.ToMonochrome(bufferedImage);
+
+                    Image img  = SwingFXUtils.toFXImage(mono.image, null);
+                    imageView.setImage(img);
+
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 3: //erozja
@@ -134,7 +147,7 @@ public class Panel extends StartWindow
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
-                    System.out.println("Cought exception: " + e.getMessage());
+                    System.out.println("Caught exception: " + e.getMessage());
                 }
                 catch (Exception e) {
                     System.out.println("Radius cannot be <= 0!");
@@ -152,7 +165,7 @@ public class Panel extends StartWindow
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
-                    System.out.println("Cought exception: " + e.getMessage());
+                    System.out.println("Caught exception: " + e.getMessage());
                 }
                 catch (Exception e) {
                     System.out.println("Radius cannot be <= 0!");
@@ -181,6 +194,20 @@ public class Panel extends StartWindow
                 break;
             //--------------------------------------------------------------------------------------------- 
             case 12: //binaryzacja
+                try {
+                    Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
+
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+
+                    mono.image = mono.ToBinary(bufferedImage);
+
+                    Image img  = SwingFXUtils.toFXImage(mono.image, null);
+                    imageView.setImage(img);
+
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
                 break;
         }
     }
@@ -191,6 +218,7 @@ public class Panel extends StartWindow
         lamanaB.setVisible(false);
         lamanaC.setVisible(false);
         oknovmf.setVisible(false);
+        promien.setVisible(true);
         this.activeButton = 0;
     }
 
@@ -200,10 +228,18 @@ public class Panel extends StartWindow
         lamanaB.setVisible(false);
         lamanaC.setVisible(false);
         oknovmf.setVisible(false);
+        promien.setVisible(true);
         this.activeButton = 1;
     }
 
-    public void monoOnClick(ActionEvent actionEvent) {
+    public void monoOnClick(ActionEvent actionEvent)
+    {
+        progbinaryzacji.setVisible(false);
+        lamanaA.setVisible(false);
+        lamanaB.setVisible(false);
+        lamanaC.setVisible(false);
+        oknovmf.setVisible(false);
+        promien.setVisible(false);
         this.activeButton = 2;
     }
 
@@ -213,6 +249,7 @@ public class Panel extends StartWindow
         lamanaB.setVisible(false);
         lamanaC.setVisible(false);
         oknovmf.setVisible(false);
+        promien.setVisible(true);
         this.activeButton = 3;
     }
 
@@ -222,6 +259,7 @@ public class Panel extends StartWindow
         lamanaB.setVisible(false);
         lamanaC.setVisible(false);
         oknovmf.setVisible(false);
+        promien.setVisible(true);
         this.activeButton = 4;
     }
 
@@ -249,11 +287,21 @@ public class Panel extends StartWindow
         this.activeButton = 10;
     }
 
-    public void odlGeoOnClick(ActionEvent actionEvent) {
+    public void odlGeoOnClick(ActionEvent actionEvent)
+    {
         this.activeButton = 11;
+
     }
 
-    public void binaryzacjaOnClick(ActionEvent actionEvent) {
+
+    public void binaryzacjaOnClick(ActionEvent actionEvent)
+    {
+        progbinaryzacji.setVisible(false);
+        lamanaA.setVisible(false);
+        lamanaB.setVisible(false);
+        lamanaC.setVisible(false);
+        oknovmf.setVisible(false);
+        promien.setVisible(false);
         this.activeButton = 12;
     }
 }

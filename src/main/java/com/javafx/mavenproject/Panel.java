@@ -200,7 +200,7 @@ public class Panel extends StartWindow
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
 
-                    mono.image = mono.ToBinary(bufferedImage);
+                   // mono.image = mono.ToBinary(bufferedImage);
 
                     Image img  = SwingFXUtils.toFXImage(mono.image, null);
                     imageView.setImage(img);

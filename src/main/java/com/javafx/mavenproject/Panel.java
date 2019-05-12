@@ -3,10 +3,12 @@ package com.javafx.mavenproject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
@@ -40,11 +42,19 @@ public class Panel
     @FXML private TextField oknovmf;
     @FXML private TextField promien;
 
-    public void ShowImage(File obraz )
+    public void ShowImage(File obraz)
     {
         Image image = new Image(obraz.toURI().toString());
-        imageView = new ImageView(image);
-        System.out.println(obraz.getPath());
+        //imageView.setImage(image);
+
+        StackPane sp = new StackPane();
+        ImageView imgView = new ImageView(image);
+        sp.getChildren().add(imgView);
+
+        Scene scene = new Scene(sp);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
 
     }
     public void params()

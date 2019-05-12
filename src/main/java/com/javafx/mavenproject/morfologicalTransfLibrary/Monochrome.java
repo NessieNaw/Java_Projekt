@@ -1,5 +1,7 @@
 package com.javafx.mavenproject.morfologicalTransfLibrary;
 
+import javafx.scene.image.PixelReader;
+
 import java.awt.*;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
@@ -56,6 +58,9 @@ public class Monochrome
         BufferedImage colorImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         BufferedImage binaryImage = new BufferedImage(colorImage.getWidth(), colorImage.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
 
+
+        
+        
         for (int x = 0; x < colorImage.getWidth(); x++)
             for (int y = 0; y < colorImage.getHeight(); y++)
             {
@@ -72,6 +77,8 @@ public class Monochrome
                 System.out.println(colorImage.getRaster().getSample(x, y, 1));  //G
                 System.out.println(colorImage.getRaster().getSample(x, y, 2));  //B
 
+
+                
 
                 System.out.println(Integer.toString(colorImage.getRGB(x, y), 16));
                 if (rgbToGray(colorImage.getRGB(x, y)) > 127 )

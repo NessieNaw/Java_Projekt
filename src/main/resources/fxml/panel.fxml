@@ -2,37 +2,35 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="491.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.mavenproject.Panel">
+<AnchorPane prefHeight="500.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.mavenproject.Panel">
    <children>
-      <Button id="otwarcie" layoutY="2.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="63.0" text="Otwarcie" onAction="#otwarcieOnClick" />
-      <Button id="zamkniecie" layoutX="63.0" layoutY="2.0" mnemonicParsing="false" text="Zamknięcie" onAction="#zamkniecieOnClick" />
-      <ImageView fx:id="imageView" fitHeight="411.0" fitWidth="467.0" layoutX="1.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
+      <Button id="otwarcie" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#otwarcieOnClick" prefHeight="39.0" prefWidth="99.0" text="Otwarcie" />
+      <Button id="zamkniecie" layoutX="102.0" layoutY="1.0" mnemonicParsing="false" onAction="#zamkniecieOnClick" text="Zamknięcie" />
+      <ImageView fx:id="imageView" fitHeight="418.0" fitWidth="506.0" layoutX="1.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
 
-      <Label layoutX="471.0" layoutY="62.0" text="Parametry:">
+      <Label layoutX="510.0" layoutY="80.0" text="Parametry:">
          <font>
-            <Font size="18.0" />
+            <Font size="20.0" />
          </font>
       </Label>
 
-      <Label layoutX="471.0" layoutY="258.0" text="prog binaryzacji" />
-      <TextField fx:id="progbinaryzacji" layoutX="474.0" layoutY="275.0" />
-      <Label  layoutX="471.0" layoutY="89.0" text="lamana A" />
-      <TextField fx:id="lamanaA" layoutX="474.0" layoutY="106.0" />
-      <Label  layoutX="471.0" layoutY="131.0" text="lamana B" />
-      <TextField fx:id="lamanaB" layoutX="474.0" layoutY="148.0" />
-      <Label  layoutX="471.0" layoutY="173.0" text="lamana C" />
-      <TextField fx:id="lamanaC" layoutX="474.0" layoutY="190.0" />
-      <Label  layoutX="471.0" layoutY="215.0" text="okno VMF" />
-      <TextField fx:id="oknovmf" layoutX="474.0" layoutY="233.0" />
-      <Label  layoutX="471.0" layoutY="300.0" text="promien" />
-      <TextField fx:id="promien" layoutX="474.0" layoutY="317.0" />
+      <Label layoutX="510.0" layoutY="335.0" text="prog binaryzacji" />
+      <TextField fx:id="progbinaryzacji" layoutX="510.0" layoutY="355.0" />
+      <Label layoutX="510.0" layoutY="105.0" text="lamana A" />
+      <TextField fx:id="lamanaA" layoutX="510.0" layoutY="125.0" />
+      <Label layoutX="510.0" layoutY="150.0" text="lamana B" />
+      <TextField fx:id="lamanaB" layoutX="510.0" layoutY="170.0" />
+      <Label layoutX="510.0" layoutY="195.0" text="lamana C" />
+      <TextField fx:id="lamanaC" layoutX="510.0" layoutY="215.0" />
+      <Label layoutX="510.0" layoutY="240.0" text="okno VMF" />
+      <TextField fx:id="oknovmf" layoutX="510.0" layoutY="260.0" />
+      <Label layoutX="510.0" layoutY="285.0" text="promien" />
+      <TextField fx:id="promien" layoutX="510.0" layoutY="305.0" />
       <!--<Label layoutX="471.0" layoutY="342.0" text="parametr" />
       <TextField layoutX="474.0" layoutY="359.0" />
       <Label layoutX="471.0" layoutY="384.0" text="parametr" />
@@ -40,19 +38,19 @@
 
 
 
-      <Button id="monochromatyzacja" layoutX="139.0" layoutY="2.0" mnemonicParsing="false" text="Monochromatyzacja" onAction="#monoOnClick"/>
-      <Button id="erozja" layoutX="263.0" layoutY="2.0" mnemonicParsing="false" text="Erozja" onAction="#erozjaOnClick" />
-      <Button id="dylacja" layoutX="311.0" layoutY="2.0" mnemonicParsing="false" prefHeight="9.0" prefWidth="54.0" text="Dylacja" onAction="#dylacjaOnClick"/>
-      <Button id="normalizacja" layoutX="365.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Normalizacja wg. łamanej" wrapText="true" onAction="#normOnClick"/>
-      <Button id="vmf" layoutX="521.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="VMF" onAction="#vmfOnClick" />
-      <Button id="progowanie" layoutX="575.0" layoutY="2.0" mnemonicParsing="false" text="Progowanie" onAction="#progowanieOnClick" />
-      <Button id="kirch" layoutY="28.0" mnemonicParsing="false" text="Filtracja Kircha" onAction="#kirchOnClick"/>
-      <Button id="zamknieciekolowe" layoutX="93.0" layoutY="28.0" mnemonicParsing="false" text="Zamknięcie elementem kołowym" onAction="#zamkKoloOnClick"/>
-      <Button id="odbiciesymetryczne" layoutX="284.0" layoutY="28.0" mnemonicParsing="false" text="Odbicie symetryczne" onAction="#odbicieOnClick"/>
-      <Button id="odlegloscgeodezyjna" layoutX="410.0" layoutY="28.0" mnemonicParsing="false" text="Mapa odległości geodezyjnej" onAction="#odlGeoOnClick" />
-      <Button id="binaryzacja" layoutX="578.0" layoutY="28.0" mnemonicParsing="false" text="Binaryzacja" onAction="#binaryzacjaOnClick"/>
+      <Button id="monochromatyzacja" layoutX="506.0" layoutY="1.0" mnemonicParsing="false" onAction="#monoOnClick" text="Monochrom" />
+      <Button id="erozja" layoutX="203.0" layoutY="1.0" mnemonicParsing="false" onAction="#erozjaOnClick" text="Erozja" />
+      <Button id="dylacja" layoutX="304.0" layoutY="1.0" mnemonicParsing="false" onAction="#dylacjaOnClick" prefHeight="39.0" prefWidth="99.0" text="Dylacja" />
+      <Button id="normalizacja" layoutX="102.0" layoutY="40.0" mnemonicParsing="false" onAction="#normOnClick" prefHeight="39.0" prefWidth="156.0" text="Normalizacja" wrapText="true" />
+      <Button id="vmf" layoutX="203.0" layoutY="40.0" mnemonicParsing="false" onAction="#vmfOnClick" prefHeight="39.0" prefWidth="85.0" text="VMF" />
+      <Button id="progowanie" layoutX="607.0" layoutY="1.0" mnemonicParsing="false" onAction="#progowanieOnClick" text="Progowanie" />
+      <Button id="kirch" layoutX="304.0" layoutY="40.0" mnemonicParsing="false" onAction="#kirchOnClick" text="Filtr. Kircha" />
+      <Button id="zamknieciekolowe" layoutX="506.0" layoutY="40.0" mnemonicParsing="false" onAction="#zamkKoloOnClick" text="Zam. el. koł." />
+      <Button id="odbiciesymetryczne" layoutX="405.0" layoutY="40.0" mnemonicParsing="false" onAction="#odbicieOnClick" text="Odbicie sym." />
+      <Button id="odlegloscgeodezyjna" layoutX="1.0" layoutY="40.0" mnemonicParsing="false" onAction="#odlGeoOnClick" text="Odl. geod." />
+      <Button id="binaryzacja" layoutX="405.0" layoutY="1.0" mnemonicParsing="false" onAction="#binaryzacjaOnClick" text="Binaryzacja" />
 
-      <Button fx:id="analizuj" onAction="#params" layoutX="475.0" layoutY="438.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="149.0" text="Analizuj">
+      <Button fx:id="analizuj" layoutX="530.0" layoutY="420.0" mnemonicParsing="false" onAction="#params" prefHeight="39.0" prefWidth="149.0" text="Analizuj">
          <font>
             <Font size="18.0" />
          </font>

@@ -33,10 +33,10 @@
       <TextField fx:id="oknovmf" layoutX="474.0" layoutY="233.0" />
       <Label  layoutX="471.0" layoutY="300.0" text="promien" />
       <TextField fx:id="promien" layoutX="474.0" layoutY="317.0" />
-      <Label layoutX="471.0" layoutY="342.0" text="parametr" />
+      <!--<Label layoutX="471.0" layoutY="342.0" text="parametr" />
       <TextField layoutX="474.0" layoutY="359.0" />
       <Label layoutX="471.0" layoutY="384.0" text="parametr" />
-      <TextField layoutX="474.0" layoutY="401.0" />
+      <TextField layoutX="474.0" layoutY="401.0" />-->
 
 
 

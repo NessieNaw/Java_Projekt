@@ -40,7 +40,8 @@ public class Panel extends StartWindow
     @FXML private javafx.scene.control.Button vmf;
     @FXML private javafx.scene.control.Button progowanie;
     @FXML private javafx.scene.control.Button kirch;
-    @FXML private javafx.scene.control.Button zamknieciesymetryczne;
+    @FXML private javafx.scene.control.Button zamknieciekolowe;
+    @FXML private javafx.scene.control.Button odbiciesymetryczne;
     @FXML private javafx.scene.control.Button odlegloscgeodezyjna;
     @FXML private javafx.scene.control.Button binaryzacja;
     @FXML private TextField progbinaryzacji;
@@ -55,6 +56,42 @@ public class Panel extends StartWindow
     @FXML
     public void initialize() {
         imageView.setImage(new Image(StartWindow.obraz.toURI().toString()));
+        progbinaryzacji.setDisable(true);
+        lamanaA.setDisable(true);
+        lamanaB.setDisable(true);
+        lamanaC.setDisable(true);
+        oknovmf.setDisable(true);
+        promien.setDisable(true);
+        if(which==1)
+        {
+            System.out.printf("Opcja logiczna");
+            monochromatyzacja.setDisable(true);
+            normalizacja.setDisable(true);
+            vmf.setDisable(true);
+            progowanie.setDisable(true);
+            kirch.setDisable(true);
+            binaryzacja.setDisable(true);
+            odbiciesymetryczne.setDisable(true);
+
+        }
+        if(which==2)
+        {
+            System.out.printf("Opcja mono");
+            monochromatyzacja.setDisable(true);
+            vmf.setDisable(true);
+            odlegloscgeodezyjna.setDisable(true);
+
+        }if(which==3)
+        {
+            System.out.printf("Opcja kolorowa");
+            otwarcie.setDisable(true);
+            zamkniecie.setDisable(true);
+            erozja.setDisable(true);
+            dylacja.setDisable(true);
+            zamknieciekolowe.setDisable(true);
+            odlegloscgeodezyjna.setDisable(true);
+        }
+
     }
 
     public void ShowImage(File obraz)
@@ -213,53 +250,27 @@ public class Panel extends StartWindow
     }
 
     public void otwarcieOnClick(ActionEvent actionEvent) {
-        progbinaryzacji.setVisible(false);
-        lamanaA.setVisible(false);
-        lamanaB.setVisible(false);
-        lamanaC.setVisible(false);
-        oknovmf.setVisible(false);
-        promien.setVisible(true);
+        promien.setDisable(false);
         this.activeButton = 0;
     }
 
     public void zamkniecieOnClick(ActionEvent actionEvent) {
-        progbinaryzacji.setVisible(false);
-        lamanaA.setVisible(false);
-        lamanaB.setVisible(false);
-        lamanaC.setVisible(false);
-        oknovmf.setVisible(false);
-        promien.setVisible(true);
+        promien.setDisable(false);
         this.activeButton = 1;
     }
 
     public void monoOnClick(ActionEvent actionEvent)
     {
-        progbinaryzacji.setVisible(false);
-        lamanaA.setVisible(false);
-        lamanaB.setVisible(false);
-        lamanaC.setVisible(false);
-        oknovmf.setVisible(false);
-        promien.setVisible(false);
         this.activeButton = 2;
     }
 
     public void erozjaOnClick(ActionEvent actionEvent) {
-        progbinaryzacji.setVisible(false);
-        lamanaA.setVisible(false);
-        lamanaB.setVisible(false);
-        lamanaC.setVisible(false);
-        oknovmf.setVisible(false);
-        promien.setVisible(true);
+        promien.setDisable(false);
         this.activeButton = 3;
     }
 
     public void dylacjaOnClick(ActionEvent actionEvent) {
-        progbinaryzacji.setVisible(false);
-        lamanaA.setVisible(false);
-        lamanaB.setVisible(false);
-        lamanaC.setVisible(false);
-        oknovmf.setVisible(false);
-        promien.setVisible(true);
+        promien.setDisable(false);
         this.activeButton = 4;
     }
 
@@ -296,12 +307,6 @@ public class Panel extends StartWindow
 
     public void binaryzacjaOnClick(ActionEvent actionEvent)
     {
-        progbinaryzacji.setVisible(false);
-        lamanaA.setVisible(false);
-        lamanaB.setVisible(false);
-        lamanaC.setVisible(false);
-        oknovmf.setVisible(false);
-        promien.setVisible(false);
         this.activeButton = 12;
     }
 }

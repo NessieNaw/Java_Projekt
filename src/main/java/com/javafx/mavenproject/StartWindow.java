@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 
-public class StartWindow extends Panel
+public class StartWindow
 {
     @FXML private javafx.scene.control.Button closeButton;
     @FXML private javafx.scene.control.Button binarny;
@@ -19,7 +19,11 @@ public class StartWindow extends Panel
     @FXML private javafx.scene.control.Button kolorowy;
 
     int which = 0;
-    File obraz = null;
+    static File obraz;
+
+    public File getObraz() {
+        return obraz;
+    }
 
     public int chooseFile() throws Exception
     {
@@ -48,15 +52,14 @@ public class StartWindow extends Panel
     }
     public void openPanel(Stage stage) throws Exception
     {
-        Panel pan = new Panel();
-        pan.ShowImage(obraz);
+        //Panel pan = new Panel(obraz);
+        //pan.ShowImage(obraz);
 
         String fxmlFile = "/fxml/panel.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent rootNode = (Parent) loader.load(getClass().getResourceAsStream(fxmlFile));
         Scene scene = new Scene(rootNode, 700,500);
         scene.getStylesheets().add("/styles/style2.css");
-
 
         stage.setTitle("Panel window");
         stage.setScene(scene);
@@ -72,7 +75,7 @@ public class StartWindow extends Panel
         if (selectedFile != null)
         {
             //stage.display(selectedFile);
-            obraz = selectedFile;
+            this.obraz = selectedFile;
             System.out.println(obraz.getPath());
             return 1;
         }

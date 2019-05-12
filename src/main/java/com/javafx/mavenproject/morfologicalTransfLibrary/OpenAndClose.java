@@ -1,12 +1,15 @@
 package com.javafx.mavenproject.morfologicalTransfLibrary;
 
+import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
-public class OpenAndClose {
+public class OpenAndClose
+{
     public BufferedImage image;
 
-    public OpenAndClose(BufferedImage image) {
+    public OpenAndClose(BufferedImage image)
+    {
         this.image = image;
     }
 
@@ -67,6 +70,10 @@ public class OpenAndClose {
         }
 
     public BufferedImage Opening(int[][] pixelsTab, int radius) {
+        if(radius <=0) {
+            return null;
+        }
+
         int[][] tmpPixels = convertTo2DArray(erode(pixelsTab, radius));
         tmpPixels = convertTo2DArray(dilate(tmpPixels, radius));
         BufferedImage img = new BufferedImage(tmpPixels[0].length - 2*radius, tmpPixels.length - 2*radius, BufferedImage.TYPE_3BYTE_BGR);
@@ -113,16 +120,66 @@ public class OpenAndClose {
     }
 
     public int[][] convertTo2DArray(BufferedImage image) { //nie jestem w 100% pewna, czy to działa
+        final byte[] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
         int width = image.getWidth();
         int height = image.getHeight();
 
+        final boolean hasAlphaChannel = image.getAlphaRaster() != null;
+
         int[][] result = new int[height][width];
 
-        for(int i = 0; i < width; i++)  {
-            for(int j = 0; j < height; j++)
-                result[i][j] = image.getRGB(i, j);
+        if (isMonochrome(image)) {
+            final int pixelLength = 1;
+            for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength) {
+                int grey = ((int) pixels[pixel] & 0xff);
+                result[row][col] = grey;
+                col++;
+                if (col == width) {
+                    col = 0;
+                    row++;
+                }
+            }
+            return result;
         }
 
-         return result;
+        if (hasAlphaChannel) {
+            final int pixelLength = 4;
+            for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength) {
+                int argb = 0;
+                argb += (((int) pixels[pixel] & 0xff) << 24); // alpha
+                argb += ((int) pixels[pixel + 1] & 0xff); // blue
+                argb += (((int) pixels[pixel + 2] & 0xff) << 8); // green
+                argb += (((int) pixels[pixel + 3] & 0xff) << 16); // red
+                result[row][col] = argb;
+                col++;
+                if (col == width) {
+                    col = 0;
+                    row++;
+                }
+            }
+        } else {
+            final int pixelLength = 3;
+            for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength) {
+                int argb = 0;
+                argb += -16777216; // 255 alpha
+                argb += ((int) pixels[pixel] & 0xff); // blue
+                argb += (((int) pixels[pixel + 1] & 0xff) << 8); // green
+                argb += (((int) pixels[pixel + 2] & 0xff) << 16); // red
+                result[row][col] = argb;
+                col++;
+                if (col == width) {
+                    col = 0;
+                    row++;
+                }
+            }
+        }
+        return result;
+    }
+
+    public static boolean isMonochrome(BufferedImage image) {
+        final int type = image.getColorModel().getColorSpace().getType();
+        final boolean isMonochrome = (type == ColorSpace.TYPE_GRAY || type == ColorSpace.CS_GRAY);
+
+        return isMonochrome;
     }
 }

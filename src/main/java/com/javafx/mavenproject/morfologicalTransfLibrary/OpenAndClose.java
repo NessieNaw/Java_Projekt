@@ -70,6 +70,10 @@ public class OpenAndClose
         }
 
     public BufferedImage Opening(int[][] pixelsTab, int radius) {
+        if(radius <=0) {
+            return null;
+        }
+
         int[][] tmpPixels = convertTo2DArray(erode(pixelsTab, radius));
         tmpPixels = convertTo2DArray(dilate(tmpPixels, radius));
         BufferedImage img = new BufferedImage(tmpPixels[0].length - 2*radius, tmpPixels.length - 2*radius, BufferedImage.TYPE_3BYTE_BGR);

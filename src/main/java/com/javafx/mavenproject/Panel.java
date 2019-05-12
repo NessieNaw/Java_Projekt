@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -173,7 +174,7 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 5: //normalizacja
-                break;
+               break;
             //---------------------------------------------------------------------------------------------
             case 6: //VMF
                 break;

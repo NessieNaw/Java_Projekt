@@ -82,7 +82,7 @@ public class Panel extends StartWindow
         System.out.println(lamA+ lamB+ lamC+ oknoVMF+ progBin+ pr );
 
         switch(activeButton) {
-            case 0:
+            case 0: //otwarcie
                 System.out.println("In transformations");
                 try {
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz); //tutaj nie działa
@@ -97,19 +97,82 @@ public class Panel extends StartWindow
                     System.out.println("Cought exception: " + e.getMessage());
                 }
                 break;
-            case 1:
+            case 1: //zamkniecie
+                break;
+            case 2: //monochromatyzacja
+                break;
+            case 3: //erozja
+                break;
+            case 4: //dylacja
+                break;
+            case 5: //normalizacja
+                break;
+            case 6: //VMF
+                break;
+            case 7: //progowanie
+                break;
+            case 8: //filtracja kircha
+                break;
+            case 9: //zamkniecie elem. kołowym
+                break;
+            case 10: //odbicie symetryczne
+                break;
+            case 11: //mapa odl geodezyjnej
+                break;
+            case 12: //binaryzacja
                 break;
         }
-
     }
 
     public void otwarcieOnClick(ActionEvent actionEvent) {
         this.activeButton = 0;
-        System.out.println(this.activeButton);
+    }
+
+    public void zamkniecieOnClick(ActionEvent actionEvent) {
+        this.activeButton = 1;
+    }
+
+    public void monoOnClick(ActionEvent actionEvent) {
+        this.activeButton = 2;
+    }
+
+    public void erozjaOnClick(ActionEvent actionEvent) {
+        this.activeButton = 3;
+    }
+
+    public void dylacjaOnClick(ActionEvent actionEvent) {
+        this.activeButton = 4;
+    }
+
+    public void normOnClick(ActionEvent actionEvent) {
+        this.activeButton = 5;
+    }
+
+    public void vmfOnClick(ActionEvent actionEvent) {
+        this.activeButton = 6;
+    }
+
+    public void progowanieOnClick(ActionEvent actionEvent) {
+        this.activeButton = 7;
+    }
+
+    public void kirchOnClick(ActionEvent actionEvent) {
+        this.activeButton = 8;
+    }
+
+    public void zamkKoloOnClick(ActionEvent actionEvent) {
+        this.activeButton = 9;
+    }
+
+    public void odbicieOnClick(ActionEvent actionEvent) {
+        this.activeButton = 10;
+    }
+
+    public void odlGeoOnClick(ActionEvent actionEvent) {
+        this.activeButton = 11;
+    }
+
+    public void binaryzacjaOnClick(ActionEvent actionEvent) {
+        this.activeButton = 12;
     }
 }
-
-//Active Buttons:
-//0 - otwarcie
-//1 - zamknięcie
-//...

@@ -46,13 +46,18 @@ public class OpenAndClose
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
             ;
 
-            for (int y = radius; y < height - radius; y++) {
-                for (int x = radius; x < width - radius; x++) {
+            for (int y = radius; y < height - radius; y++)
+            {
+                for (int x = radius; x < width - radius; x++)
+                {
                     int rgb = (0 << 16) | (0 << 8) | 0;
 
-                    for (int i = -radius; i < radius; i++) {
-                        for (int j = -radius; j < radius; j++) {
-                            if (i * i + j * j <= radius * radius) {
+                    for (int i = -radius; i < radius; i++)
+                    {
+                        for (int j = -radius; j < radius; j++)
+                        {
+                            if (i * i + j * j <= radius * radius)
+                            {
                                 int pixel = pixelsTab[j + y][i + x];
                                 int value = (pixel & 0xff);
                                 int currentRGB = (value << 16) | (value << 8) | value;

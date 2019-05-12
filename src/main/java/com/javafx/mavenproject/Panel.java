@@ -123,11 +123,12 @@ public class Panel extends StartWindow
                 try {
                     Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
 
-                    int[][] pixels = mono.convertTo2DArray(mono.image);
-                    mono.image = mono.ToMonochrome(pixels);
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
 
-                    Image image  = SwingFXUtils.toFXImage(mono.image, null);
-                    imageView.setImage(image);
+                    mono.image = mono.ToMonochrome(bufferedImage);
+
+                    Image img  = SwingFXUtils.toFXImage(mono.image, null);
+                    imageView.setImage(img);
 
                 }
                 catch (IOException e) {
@@ -193,6 +194,20 @@ public class Panel extends StartWindow
                 break;
             //--------------------------------------------------------------------------------------------- 
             case 12: //binaryzacja
+                try {
+                    Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
+
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+
+                    mono.image = mono.ToBinary(bufferedImage);
+
+                    Image img  = SwingFXUtils.toFXImage(mono.image, null);
+                    imageView.setImage(img);
+
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
                 break;
         }
     }
@@ -272,11 +287,21 @@ public class Panel extends StartWindow
         this.activeButton = 10;
     }
 
-    public void odlGeoOnClick(ActionEvent actionEvent) {
+    public void odlGeoOnClick(ActionEvent actionEvent)
+    {
         this.activeButton = 11;
+
     }
 
-    public void binaryzacjaOnClick(ActionEvent actionEvent) {
+
+    public void binaryzacjaOnClick(ActionEvent actionEvent)
+    {
+        progbinaryzacji.setVisible(false);
+        lamanaA.setVisible(false);
+        lamanaB.setVisible(false);
+        lamanaC.setVisible(false);
+        oknovmf.setVisible(false);
+        promien.setVisible(false);
         this.activeButton = 12;
     }
 }

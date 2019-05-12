@@ -14,13 +14,46 @@ public class Monochrome
         this.image = image;
     }
 
-    public BufferedImage ToMonochrome(int [][] pixelsTab)
+    public BufferedImage ToMonochrome( BufferedImage bufferedImage)
     {
-        int width = pixelsTab[0].length;
-        int height = pixelsTab.length;
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
 
         System.out.println( width + "width" + height+"height");
-        BufferedImage colorImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_BGR);
+        BufferedImage colorImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage binaryImage = new BufferedImage(colorImage.getWidth(), colorImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+
+        for (int x = 0; x < colorImage.getWidth(); x++)
+            for (int y = 0; y < colorImage.getHeight(); y++)
+            {
+                Color mycolour = new Color(colorImage.getRGB(x, y));
+                int color = colorImage.getRGB(x,y);
+                int blue = color & 0xff;
+                int green = (color & 0xff00) >> 8;
+                int red = (color & 0xff0000) >> 16;
+                int alpha = (color & 0xff000000) >>> 24;
+
+                System.out.println(blue +" "+green+" "+red+" "+alpha+" ");
+                System.out.println(mycolour);
+                System.out.println(colorImage.getRaster().getSample(x, y, 0));  //R
+                System.out.println(colorImage.getRaster().getSample(x, y, 1));  //G
+                System.out.println(colorImage.getRaster().getSample(x, y, 2));  //B
+
+
+                binaryImage.setRGB(x,y,rgbToGray(colorImage.getRGB(x,y)));
+
+            }
+        return binaryImage;
+
+    }
+
+    public BufferedImage ToBinary( BufferedImage bufferedImage)
+    {
+        int width = bufferedImage.getWidth();
+        int height = bufferedImage.getHeight();
+
+        System.out.println( width + "width" + height+"height");
+        BufferedImage colorImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         BufferedImage binaryImage = new BufferedImage(colorImage.getWidth(), colorImage.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
 
         for (int x = 0; x < colorImage.getWidth(); x++)
@@ -34,9 +67,13 @@ public class Monochrome
                 int alpha = (color & 0xff000000) >>> 24;
 
                 System.out.println(blue +" "+green+" "+red+" "+alpha+" ");
+                System.out.println(mycolour);
+                System.out.println(colorImage.getRaster().getSample(x, y, 0));  //R
+                System.out.println(colorImage.getRaster().getSample(x, y, 1));  //G
+                System.out.println(colorImage.getRaster().getSample(x, y, 2));  //B
 
-                System.out.println(mycolour + " x, y " + x + " " + y  + " "+ mycolour.getAlpha());
 
+                System.out.println(Integer.toString(colorImage.getRGB(x, y), 16));
                 if (rgbToGray(colorImage.getRGB(x, y)) > 127 )
                 {
                     binaryImage.setRGB(x, y, 0);
@@ -60,68 +97,5 @@ public class Monochrome
 }
 
 
-    public int[][] convertTo2DArray(BufferedImage image) {
-        final byte[] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        final boolean hasAlphaChannel = image.getAlphaRaster() != null;
-
-        int[][] result = new int[height][width];
-
-        if (isMonochrome(image)) {
-            final int pixelLength = 1;
-            for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength) {
-                int grey = ((int) pixels[pixel] & 0xff);
-                result[row][col] = grey;
-                col++;
-                if (col == width) {
-                    col = 0;
-                    row++;
-                }
-            }
-            return result;
-        }
-
-        if (hasAlphaChannel) {
-            final int pixelLength = 4;
-            for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength) {
-                int argb = 0;
-                argb += (((int) pixels[pixel] & 0xff) << 24); // alpha
-                argb += ((int) pixels[pixel + 1] & 0xff); // blue
-                argb += (((int) pixels[pixel + 2] & 0xff) << 8); // green
-                argb += (((int) pixels[pixel + 3] & 0xff) << 16); // red
-                result[row][col] = argb;
-                col++;
-                if (col == width) {
-                    col = 0;
-                    row++;
-                }
-            }
-        } else {
-            final int pixelLength = 3;
-            for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength) {
-                int argb = 0;
-                argb += -16777216; // 255 alpha
-                argb += ((int) pixels[pixel] & 0xff); // blue
-                argb += (((int) pixels[pixel + 1] & 0xff) << 8); // green
-                argb += (((int) pixels[pixel + 2] & 0xff) << 16); // red
-                result[row][col] = argb;
-                col++;
-                if (col == width) {
-                    col = 0;
-                    row++;
-                }
-            }
-        }
-        return result;
-    }
-
-    public static boolean isMonochrome(BufferedImage image) {
-        final int type = image.getColorModel().getColorSpace().getType();
-        final boolean isMonochrome = (type == ColorSpace.TYPE_GRAY || type == ColorSpace.CS_GRAY);
-
-        return isMonochrome;
-    }
 
 }

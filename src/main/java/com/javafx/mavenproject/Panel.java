@@ -9,8 +9,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -50,27 +52,25 @@ public class Panel extends StartWindow
     @FXML private TextField promien;
 
     private int activeButton;
+    BufferedImage bufferedImage;
 
     @FXML
     public void initialize() {
         imageView.setImage(new Image(StartWindow.obraz.toURI().toString()));
+        if(which == 1) {
+
+        }
+        else if(which == 2) {
+
+        }
+        else if(which == 3) {
+            otwarcie.setDisable(true);
+            zamkniecie.setDisable(true);
+            erozja.setDisable(true);
+            dylacja.setDisable(true);
+        }
     }
 
-    public void ShowImage(File obraz)
-    {
-        Image image = new Image(obraz.toURI().toString());
-        //imageView.setImage(image);// ????????
-
-        StackPane sp = new StackPane();
-        ImageView imgView = new ImageView(image);
-        sp.getChildren().add(imgView);
-
-        Scene scene = new Scene(sp);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-
-    }
     public void params()
     {
         String progBin = progbinaryzacji.getText();
@@ -86,12 +86,15 @@ public class Panel extends StartWindow
             case 0: //otwarcie
                 System.out.println("In transformations");
                 try {
-                    OpenAndClose op = new OpenAndClose(ImageIO.read(StartWindow.obraz));
+                    //OpenAndClose op = new OpenAndClose(ImageIO.read(StartWindow.obraz));
 
-                    int[][] pixels = op.convertTo2DArray(op.image);
-                    op.image = op.Opening(pixels, Integer.parseInt(pr));
+                    //int[][] pixels = op.convertTo2DArray(op.image);
+                    //op.image = op.Opening(pixels, Integer.parseInt(pr));
+                    bufferedImage = ImageIO.read(StartWindow.obraz);
+                    int[][] pixels = OpenAndClose.convertTo2DArray(bufferedImage);
+                    bufferedImage = OpenAndClose.Opening(pixels, Integer.parseInt(pr));
 
-                    Image image = SwingFXUtils.toFXImage(op.image, null);
+                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
@@ -104,12 +107,11 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 1: //zamkniecie
                 try {
-                    OpenAndClose op = new OpenAndClose(ImageIO.read(StartWindow.obraz));
+                    bufferedImage = ImageIO.read(StartWindow.obraz);
+                    int[][] pixels = OpenAndClose.convertTo2DArray(bufferedImage);
+                    bufferedImage = OpenAndClose.Closing(pixels, Integer.parseInt(pr));
 
-                    int[][] pixels = op.convertTo2DArray(op.image);
-                    op.image = op.Closing(pixels, Integer.parseInt(pr));
-
-                    Image image = SwingFXUtils.toFXImage(op.image, null);
+                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
@@ -125,12 +127,11 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 3: //erozja
                 try {
-                    OpenAndClose op = new OpenAndClose(ImageIO.read(StartWindow.obraz));
+                    bufferedImage = ImageIO.read(StartWindow.obraz);
+                    int[][] pixels = OpenAndClose.convertTo2DArray(bufferedImage);
+                    bufferedImage = OpenAndClose.erode(pixels, Integer.parseInt(pr));
 
-                    int[][] pixels = op.convertTo2DArray(op.image);
-                    op.image = op.erode(pixels, Integer.parseInt(pr));
-
-                    Image image = SwingFXUtils.toFXImage(op.image, null);
+                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
@@ -143,12 +144,11 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 4: //dylacja
                 try {
-                    OpenAndClose op = new OpenAndClose(ImageIO.read(StartWindow.obraz));
+                    bufferedImage = ImageIO.read(StartWindow.obraz);
+                    int[][] pixels = OpenAndClose.convertTo2DArray(bufferedImage);
+                    bufferedImage = OpenAndClose.dilate(pixels, Integer.parseInt(pr));
 
-                    int[][] pixels = op.convertTo2DArray(op.image);
-                    op.image = op.dilate(pixels, Integer.parseInt(pr));
-
-                    Image image = SwingFXUtils.toFXImage(op.image, null);
+                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
@@ -179,13 +179,14 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 11: //mapa odl geodezyjnej
                 break;
-            //--------------------------------------------------------------------------------------------- 
+            //---------------------------------------------------------------------------------------------
             case 12: //binaryzacja
                 break;
         }
     }
 
     public void otwarcieOnClick(ActionEvent actionEvent) {
+
         progbinaryzacji.setVisible(false);
         lamanaA.setVisible(false);
         lamanaB.setVisible(false);

@@ -1,17 +1,11 @@
 package com.javafx.mavenproject.morfologicalTransfLibrary;
 
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
 public class OpenAndClose {
-    public BufferedImage image;
 
-    public OpenAndClose(BufferedImage image) {
-        this.image = image;
-    }
-
-    public BufferedImage dilate(int[][] pixelsTab, int radius) {
+    public static BufferedImage dilate(int[][] pixelsTab, int radius) {
             int width = pixelsTab[0].length;
             int height = pixelsTab.length;
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
@@ -38,7 +32,7 @@ public class OpenAndClose {
             return img;
         }
 
-        public BufferedImage erode(int[][] pixelsTab, int radius) {
+        public static BufferedImage erode(int[][] pixelsTab, int radius) {
             int width = pixelsTab[0].length;
             int height = pixelsTab.length;
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
@@ -67,7 +61,7 @@ public class OpenAndClose {
             return img;
         }
 
-    public BufferedImage Opening(int[][] pixelsTab, int radius) {
+    public static BufferedImage Opening(int[][] pixelsTab, int radius) {
         if(radius <=0) {
             return null;
         }
@@ -94,7 +88,11 @@ public class OpenAndClose {
         return img;
     }
 
-    public BufferedImage Closing(int[][] pixelsTab, int radius) {
+    public static BufferedImage Closing(int[][] pixelsTab, int radius) {
+        if(radius <=0) {
+            return null;
+        }
+
         int[][] tmpPixels = convertTo2DArray(dilate(pixelsTab, radius));
         tmpPixels = convertTo2DArray(erode(tmpPixels, radius));
         BufferedImage img = new BufferedImage(tmpPixels[0].length - 2*radius, tmpPixels.length - 2*radius, BufferedImage.TYPE_3BYTE_BGR);
@@ -117,7 +115,7 @@ public class OpenAndClose {
         return img;
     }
 
-    public int[][] convertTo2DArray(BufferedImage image) { //nie jestem w 100% pewna, czy to działa
+    public static int[][] convertTo2DArray(BufferedImage image) { //nie jestem w 100% pewna, czy to działa
         final byte[] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
         int width = image.getWidth();
         int height = image.getHeight();
@@ -125,20 +123,6 @@ public class OpenAndClose {
         final boolean hasAlphaChannel = image.getAlphaRaster() != null;
 
         int[][] result = new int[height][width];
-
-        if (isMonochrome(image)) {
-            final int pixelLength = 1;
-            for (int pixel = 0, row = 0, col = 0; pixel < pixels.length; pixel += pixelLength) {
-                int grey = ((int) pixels[pixel] & 0xff);
-                result[row][col] = grey;
-                col++;
-                if (col == width) {
-                    col = 0;
-                    row++;
-                }
-            }
-            return result;
-        }
 
         if (hasAlphaChannel) {
             final int pixelLength = 4;
@@ -172,12 +156,5 @@ public class OpenAndClose {
             }
         }
         return result;
-    }
-
-    public static boolean isMonochrome(BufferedImage image) {
-        final int type = image.getColorModel().getColorSpace().getType();
-        final boolean isMonochrome = (type == ColorSpace.TYPE_GRAY || type == ColorSpace.CS_GRAY);
-
-        return isMonochrome;
     }
 }

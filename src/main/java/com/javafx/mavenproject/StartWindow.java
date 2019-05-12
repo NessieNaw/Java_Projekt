@@ -18,7 +18,7 @@ public class StartWindow
     @FXML private javafx.scene.control.Button szary;
     @FXML private javafx.scene.control.Button kolorowy;
 
-    int which = 0;
+    static int which = 0;
     static File obraz;
 
     public File getObraz() {

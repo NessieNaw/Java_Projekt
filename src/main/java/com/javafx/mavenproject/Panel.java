@@ -2,6 +2,8 @@ package com.javafx.mavenproject;
 
 import com.javafx.mavenproject.morfologicalTransfLibrary.Monochrome;
 import com.javafx.mavenproject.morfologicalTransfLibrary.OpenAndClose;
+import com.javafx.mavenproject.morfologicalTransfLibrary.Symetry;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -225,6 +227,18 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 10: //odbicie symetryczne
+                System.out.println("In transformations");
+                try {
+                    Symetry op = new Symetry(ImageIO.read(StartWindow.obraz));
+                    op.ToSymetric();
+
+                    Image image = SwingFXUtils.toFXImage(op.im, null);
+                    imageView.setImage(image);
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
+
                 break;
             //---------------------------------------------------------------------------------------------
             case 11: //mapa odl geodezyjnej

@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="491.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.Panel">
+<AnchorPane prefHeight="491.0" prefWidth="655.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.mavenproject.Panel">
    <children>
       <Button id="otwarcie" layoutY="2.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="63.0" text="Otwarcie" />
       <Button id="zamkniecie" layoutX="63.0" layoutY="2.0" mnemonicParsing="false" text="Zamknięcie" />

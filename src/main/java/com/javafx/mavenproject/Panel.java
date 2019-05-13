@@ -1,9 +1,6 @@
 package com.javafx.mavenproject;
 
-import com.javafx.mavenproject.morfologicalTransfLibrary.ImageUtils;
-import com.javafx.mavenproject.morfologicalTransfLibrary.Kirsch;
-import com.javafx.mavenproject.morfologicalTransfLibrary.Monochrome;
-import com.javafx.mavenproject.morfologicalTransfLibrary.OpenAndClose;
+import com.javafx.mavenproject.morfologicalTransfLibrary.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,7 +91,7 @@ public class Panel extends StartWindow
             monochromatyzacja.setDisable(true);
             normalizacja.setDisable(false);
             vmf.setDisable(false);
-            progowanie.setDisable(true);
+            progowanie.setDisable(false);
             kirch.setDisable(false);
             binaryzacja.setDisable(true);
             odbiciesymetryczne.setDisable(false);
@@ -174,7 +171,8 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 2: //monochromatyzacja
-                try {
+                try
+                {
                     Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
@@ -189,7 +187,7 @@ public class Panel extends StartWindow
                     System.out.println("Caught exception: " + e.getMessage());
                 }
 
-                System.out.println(which);
+
                 reInitialize();
 
                 break;
@@ -233,6 +231,24 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 7: //progowanie
+                try
+                {
+                    Histogram hist = new Histogram(ImageIO.read(StartWindow.obraz));
+
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+
+                    int verge = Integer.parseInt(pr);
+                    hist.image = hist.MonoWithVerge(bufferedImage, verge);
+
+                    Image img  = SwingFXUtils.toFXImage(hist.image, null);
+                    imageView.setImage(img);
+
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
+
+                reInitialize();
                 break;
             //---------------------------------------------------------------------------------------------
             case 8: //filtracja kircha
@@ -310,8 +326,11 @@ public class Panel extends StartWindow
         this.activeButton = 6;
     }
 
-    public void progowanieOnClick(ActionEvent actionEvent) {
+    public void progowanieOnClick(ActionEvent actionEvent)
+    {
+        promien.setDisable(false);
         this.activeButton = 7;
+
     }
 
     public void kirchOnClick(ActionEvent actionEvent) {
@@ -331,8 +350,6 @@ public class Panel extends StartWindow
         this.activeButton = 11;
 
     }
-
-
     public void binaryzacjaOnClick(ActionEvent actionEvent)
     {
         this.activeButton = 12;

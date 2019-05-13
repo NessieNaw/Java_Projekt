@@ -134,7 +134,7 @@ public class Panel extends StartWindow
         String lamB = lamanaB.getText();
         String lamC = lamanaC.getText();
         String oknoVMF = oknovmf.getText();
-        String pr = promien.getText();
+        String pr = progbinaryzacji.getText();
 
         switch(activeButton) {
             case 0: //otwarcie
@@ -328,7 +328,7 @@ public class Panel extends StartWindow
 
     public void progowanieOnClick(ActionEvent actionEvent)
     {
-        promien.setDisable(false);
+        progbinaryzacji.setDisable(false);
         this.activeButton = 7;
 
     }

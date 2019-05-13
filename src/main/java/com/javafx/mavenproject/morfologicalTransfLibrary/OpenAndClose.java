@@ -6,14 +6,7 @@ import java.awt.image.DataBufferByte;
 
 public class OpenAndClose
 {
-    public BufferedImage image;
-
-    public OpenAndClose(BufferedImage image)
-    {
-        this.image = image;
-    }
-
-    public BufferedImage dilate(int[][] pixelsTab, int radius) {
+    public static BufferedImage dilate(int[][] pixelsTab, int radius) {
             int width = pixelsTab[0].length;
             int height = pixelsTab.length;
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
@@ -40,7 +33,7 @@ public class OpenAndClose
             return img;
         }
 
-        public BufferedImage erode(int[][] pixelsTab, int radius) {
+        public static BufferedImage erode(int[][] pixelsTab, int radius) {
             int width = pixelsTab[0].length;
             int height = pixelsTab.length;
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
@@ -74,13 +67,13 @@ public class OpenAndClose
             return img;
         }
 
-    public BufferedImage Opening(int[][] pixelsTab, int radius) {
+    public static BufferedImage Opening(int[][] pixelsTab, int radius) {
         if(radius <=0) {
             return null;
         }
 
-        int[][] tmpPixels = convertTo2DArray(erode(pixelsTab, radius));
-        tmpPixels = convertTo2DArray(dilate(tmpPixels, radius));
+        int[][] tmpPixels = ImageUtils.convertTo2DArray(erode(pixelsTab, radius));
+        tmpPixels = ImageUtils.convertTo2DArray(dilate(tmpPixels, radius));
         BufferedImage img = new BufferedImage(tmpPixels[0].length - 2*radius, tmpPixels.length - 2*radius, BufferedImage.TYPE_3BYTE_BGR);
         int rgb;
 
@@ -101,9 +94,9 @@ public class OpenAndClose
         return img;
     }
 
-    public BufferedImage Closing(int[][] pixelsTab, int radius) {
-        int[][] tmpPixels = convertTo2DArray(dilate(pixelsTab, radius));
-        tmpPixels = convertTo2DArray(erode(tmpPixels, radius));
+    public static BufferedImage Closing(int[][] pixelsTab, int radius) {
+        int[][] tmpPixels = ImageUtils.convertTo2DArray(dilate(pixelsTab, radius));
+        tmpPixels = ImageUtils.convertTo2DArray(erode(tmpPixels, radius));
         BufferedImage img = new BufferedImage(tmpPixels[0].length - 2*radius, tmpPixels.length - 2*radius, BufferedImage.TYPE_3BYTE_BGR);
         int rgb;
 

@@ -35,17 +35,17 @@ public class Kirsch {
 
         int[][] out = new int[height - 2][width - 2];
 
-        for (int r = 1; r < height - 1; r++) {
-            for (int c = 1; c < width - 1; c++) {
+        for (int i = 1; i < height - 1; i++) {
+            for (int j = 1; j < width - 1; j++) {
                 int sum = 0;
 
-                for (int kr = -1; kr < 2; kr++) {
-                    for (int kc = -1; kc < 2; kc++) {
-                        sum += (array2D[r + kr][c + kc] * mask[kr + 1][kc + 1]);
+                for (int ki = -1; ki < 2; ki++) {
+                    for (int kj = -1; kj < 2; kj++) {
+                        sum += (array2D[i + ki][j + kj] * mask[ki + 1][kj + 1]);
                     }
                 }
 
-                out[r - 1][c - 1] = sum;
+                out[i - 1][j - 1] = sum;
             }
         }
 

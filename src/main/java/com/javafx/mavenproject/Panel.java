@@ -1,22 +1,16 @@
 package com.javafx.mavenproject;
 
-import com.javafx.mavenproject.morfologicalTransfLibrary.ImageUtils;
-import com.javafx.mavenproject.morfologicalTransfLibrary.Kirsch;
-import com.javafx.mavenproject.morfologicalTransfLibrary.Monochrome;
-import com.javafx.mavenproject.morfologicalTransfLibrary.OpenAndClose;
+import com.javafx.mavenproject.morfologicalTransfLibrary.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 public class Panel extends StartWindow
@@ -207,6 +201,14 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 11: //mapa odl geodezyjnej
+                try {
+                    bufferedImage = GeodesicDistance.geodesicDistance(ImageIO.read(StartWindow.obraz), new Point(10, 10));
+                    Image imga = SwingFXUtils.toFXImage(bufferedImage, null);
+                    imageView.setImage(imga);
+                }
+                catch(IOException e) {
+                   System.out.println(e.getMessage());
+                }
                 break;
             //--------------------------------------------------------------------------------------------- 
             case 12: //binaryzacja

@@ -55,15 +55,19 @@ public class Kirsch {
     public static BufferedImage kirschFilter(BufferedImage bufferedImage) {
         int[][] array2D = ImageUtils.convertTo2DArray(bufferedImage);
 
-        int[][] res = appalyKirschMask(array2D, kirschMask[0]); //trzeba zrobić pętlę???
+        int[][][] res = new int[8][bufferedImage.getWidth()][bufferedImage.getHeight()];
+        for(int i=0; i<8; i++)
+            res[i] = appalyKirschMask(array2D, kirschMask[i]);
 
-        BufferedImage result = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        BufferedImage result = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
-        for (int x = 0; x < bufferedImage.getWidth()-2; x++)
-            for (int y = 0; y < bufferedImage.getHeight()-2; y++) {
-                result.setRGB(x, y, res[y][x]);
-            }
-
+        for(int i =0; i<8; i++) {
+            for (int x = 0; x < bufferedImage.getWidth() - 2; x++)
+                for (int y = 0; y < bufferedImage.getHeight() - 2; y++) {
+                    if (result.getRGB(x, y) > res[i][y][x])
+                        result.setRGB(x, y, res[i][y][x]);
+                }
+        }
         return result;
     }
 }

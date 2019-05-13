@@ -94,6 +94,34 @@ public class Panel extends StartWindow
 
     }
 
+    public  void reInitialize()
+    {
+        if(which==1)
+        {
+            monochromatyzacja.setDisable(true);
+            normalizacja.setDisable(false);
+            vmf.setDisable(false);
+            progowanie.setDisable(true);
+            kirch.setDisable(false);
+            binaryzacja.setDisable(true);
+            odbiciesymetryczne.setDisable(false);
+            erozja.setDisable(false);
+            dylacja.setDisable(false);
+            otwarcie.setDisable(false);
+            zamkniecie.setDisable(false);
+            odlegloscgeodezyjna.setDisable(false);
+        }
+        if(which==2)
+        {
+            monochromatyzacja.setDisable(true);
+            vmf.setDisable(true);
+            odlegloscgeodezyjna.setDisable(false);
+            binaryzacja.setDisable(false);
+            progowanie.setDisable(false);
+
+        }
+    }
+
     public void ShowImage(File obraz)
     {
         Image image = new Image(obraz.toURI().toString());
@@ -171,6 +199,10 @@ public class Panel extends StartWindow
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
                 }
+
+                System.out.println(which);
+                reInitialize();
+
                 break;
             //---------------------------------------------------------------------------------------------
             case 3: //erozja
@@ -245,6 +277,8 @@ public class Panel extends StartWindow
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
                 }
+                System.out.println(which);
+                reInitialize();
                 break;
         }
     }

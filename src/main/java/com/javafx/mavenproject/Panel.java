@@ -37,8 +37,12 @@ public class Panel extends StartWindow
     @FXML private TextField oknovmf;
     @FXML private TextField promien;
 
+    @FXML private javafx.scene.control.Button save;
+
     private int activeButton;
     private BufferedImage bufferedImage;
+
+
 
     @FXML
     public void initialize() {
@@ -81,6 +85,68 @@ public class Panel extends StartWindow
 
     }
 
+    public  void reInitialize()
+    {
+        if(which==1)
+        {
+            monochromatyzacja.setDisable(true);
+            normalizacja.setDisable(false);
+            vmf.setDisable(false);
+            progowanie.setDisable(false);
+            kirch.setDisable(false);
+            binaryzacja.setDisable(true);
+            odbiciesymetryczne.setDisable(false);
+            erozja.setDisable(false);
+            dylacja.setDisable(false);
+            otwarcie.setDisable(false);
+            zamkniecie.setDisable(false);
+            odlegloscgeodezyjna.setDisable(false);
+        }
+        if(which==2)
+        {
+            monochromatyzacja.setDisable(true);
+            vmf.setDisable(true);
+            odlegloscgeodezyjna.setDisable(false);
+            binaryzacja.setDisable(false);
+            progowanie.setDisable(false);
+
+        }
+        Image ima = imageView.getImage();
+        this.bufferedImage =  SwingFXUtils.fromFXImage(ima, null);
+
+    }
+
+    public void ShowImage(File obraz)
+    {
+        Image image = new Image(obraz.toURI().toString());
+        //imageView.setImage(image);// ????????
+
+        StackPane sp = new StackPane();
+        ImageView imgView = new ImageView(image);
+        sp.getChildren().add(imgView);
+
+        Scene scene = new Scene(sp);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+
+    }
+    public int a = 0;
+    public void saveToFile(Image image)
+    {
+
+        File outputFile = new File("D:\\JavaFxImages"+a+".png");
+        System.out.println("D:\\JavaFxImages"+a+".png");
+        a++;
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        try {
+            ImageIO.write(bImage, "png", outputFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public void params()
     {
         String progBin = progbinaryzacji.getText();
@@ -88,7 +154,7 @@ public class Panel extends StartWindow
         String lamB = lamanaB.getText();
         String lamC = lamanaC.getText();
         String oknoVMF = oknovmf.getText();
-        String pr = promien.getText();
+        String pr = progbinaryzacji.getText();
 
         switch(activeButton) {
             case 0: //otwarcie
@@ -125,8 +191,12 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 2: //monochromatyzacja
-                try {
-                    Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
+                try
+                {
+                    Image ima = imageView.getImage();
+                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
+
+                    Monochrome mono = new Monochrome(im);
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
 
@@ -139,10 +209,13 @@ public class Panel extends StartWindow
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
                 }
+                reInitialize();
+
                 break;
             //---------------------------------------------------------------------------------------------
             case 3: //erozja
                 try {
+
                     int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
                     this.bufferedImage = OpenAndClose.erode(pixels, Integer.parseInt(pr));
 
@@ -180,6 +253,27 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 7: //progowanie
+                try
+                {
+                    Image ima = imageView.getImage();
+                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
+
+                    Histogram hist = new Histogram(im);
+
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+
+                    int verge = Integer.parseInt(pr);
+                    hist.image = hist.MonoWithVerge(bufferedImage, verge);
+
+                    Image img  = SwingFXUtils.toFXImage(hist.image, null);
+                    imageView.setImage(img);
+
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
+
+                reInitialize();
                 break;
             //---------------------------------------------------------------------------------------------
             case 8: //filtracja kircha
@@ -198,6 +292,18 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 10: //odbicie symetryczne
+                System.out.println("In transformations");
+                try {
+                    Symetry op = new Symetry(ImageIO.read(StartWindow.obraz));
+                    op.ToSymetric();
+
+                    Image image = SwingFXUtils.toFXImage(op.im, null);
+                    imageView.setImage(image);
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
+
                 break;
             //---------------------------------------------------------------------------------------------
             case 11: //mapa odl geodezyjnej
@@ -210,10 +316,13 @@ public class Panel extends StartWindow
                    System.out.println(e.getMessage());
                 }
                 break;
-            //--------------------------------------------------------------------------------------------- 
+            //---------------------------------------------------------------------------------------------
             case 12: //binaryzacja
                 try {
-                    Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
+                    Image ima = imageView.getImage();
+                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
+
+                    Monochrome mono = new Monochrome(im);
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
 
@@ -226,8 +335,17 @@ public class Panel extends StartWindow
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
                 }
+                System.out.println(which);
+                reInitialize();
                 break;
+                
         }
+
+    }
+    public void save(ActionEvent actionEvent)
+    {
+        Image ima = imageView.getImage();
+        saveToFile(ima);
     }
 
     public void otwarcieOnClick(ActionEvent actionEvent) {
@@ -263,8 +381,11 @@ public class Panel extends StartWindow
         this.activeButton = 6;
     }
 
-    public void progowanieOnClick(ActionEvent actionEvent) {
+    public void progowanieOnClick(ActionEvent actionEvent)
+    {
+        progbinaryzacji.setDisable(false);
         this.activeButton = 7;
+
     }
 
     public void kirchOnClick(ActionEvent actionEvent) {
@@ -284,8 +405,6 @@ public class Panel extends StartWindow
         this.activeButton = 11;
 
     }
-
-
     public void binaryzacjaOnClick(ActionEvent actionEvent)
     {
         this.activeButton = 12;

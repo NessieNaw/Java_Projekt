@@ -7,7 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane prefHeight="500.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.mavenproject.Panel">
+
    <children>
       <Button fx:id="otwarcie" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#otwarcieOnClick" prefHeight="39.0" prefWidth="99.0" text="Otwarcie" />
       <Button fx:id="zamkniecie" layoutX="102.0" layoutY="1.0" mnemonicParsing="false" onAction="#zamkniecieOnClick" text="Zamknięcie" />
@@ -55,5 +57,7 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <Button fx:id="save" layoutX="530.0" layoutY="460.0" mnemonicParsing="false" onAction="#save"  text="Zapisz"/>
+
    </children>
 </AnchorPane>

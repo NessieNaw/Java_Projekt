@@ -4,13 +4,17 @@ import com.javafx.mavenproject.morfologicalTransfLibrary.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class Panel extends StartWindow
@@ -116,21 +120,6 @@ public class Panel extends StartWindow
 
     }
 
-    public void ShowImage(File obraz)
-    {
-        Image image = new Image(obraz.toURI().toString());
-        //imageView.setImage(image);// ????????
-
-        StackPane sp = new StackPane();
-        ImageView imgView = new ImageView(image);
-        sp.getChildren().add(imgView);
-
-        Scene scene = new Scene(sp);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-
-    }
     public int a = 0;
     public void saveToFile(Image image)
     {
@@ -193,18 +182,9 @@ public class Panel extends StartWindow
             case 2: //monochromatyzacja
                 try
                 {
-                    Image ima = imageView.getImage();
-                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
-
-                    Monochrome mono = new Monochrome(im);
-
-                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
-
-                    mono.image = mono.ToMonochrome(bufferedImage);
-
-                    Image img  = SwingFXUtils.toFXImage(mono.image, null);
-                    imageView.setImage(img);
-
+                    this.bufferedImage = Monochrome.ToMonochrome(ImageIO.read(StartWindow.obraz));
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    imageView.setImage(image);
                 }
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
@@ -319,18 +299,9 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 12: //binaryzacja
                 try {
-                    Image ima = imageView.getImage();
-                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
-
-                    Monochrome mono = new Monochrome(im);
-
-                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
-
-                    mono.image = mono.ToBinary(bufferedImage);
-
-                    Image img  = SwingFXUtils.toFXImage(mono.image, null);
-                    imageView.setImage(img);
-
+                    this.bufferedImage = Monochrome.ToBinary(ImageIO.read(StartWindow.obraz));
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    imageView.setImage(image);
                 }
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());

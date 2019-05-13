@@ -1,23 +1,16 @@
 package com.javafx.mavenproject;
 
+import com.javafx.mavenproject.morfologicalTransfLibrary.ImageUtils;
 import com.javafx.mavenproject.morfologicalTransfLibrary.Kirsch;
 import com.javafx.mavenproject.morfologicalTransfLibrary.Monochrome;
 import com.javafx.mavenproject.morfologicalTransfLibrary.OpenAndClose;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -25,8 +18,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
-
 
 public class Panel extends StartWindow
 {
@@ -96,21 +87,6 @@ public class Panel extends StartWindow
 
     }
 
-    public void ShowImage(File obraz)
-    {
-        Image image = new Image(obraz.toURI().toString());
-        //imageView.setImage(image);// ????????
-
-        StackPane sp = new StackPane();
-        ImageView imgView = new ImageView(image);
-        sp.getChildren().add(imgView);
-
-        Scene scene = new Scene(sp);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-
-    }
     public void params()
     {
         String progBin = progbinaryzacji.getText();
@@ -124,12 +100,10 @@ public class Panel extends StartWindow
             case 0: //otwarcie
                 System.out.println("In transformations");
                 try {
-                    OpenAndClose op = new OpenAndClose(ImageIO.read(StartWindow.obraz));
+                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+                    this.bufferedImage = OpenAndClose.Opening(pixels, Integer.parseInt(pr));
 
-                    int[][] pixels = op.convertTo2DArray(op.image);
-                    op.image = op.Opening(pixels, Integer.parseInt(pr));
-
-                    Image image = SwingFXUtils.toFXImage(op.image, null);
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
@@ -142,12 +116,10 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 1: //zamkniecie
                 try {
-                    OpenAndClose op = new OpenAndClose(ImageIO.read(StartWindow.obraz));
+                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+                    this.bufferedImage = OpenAndClose.Closing(pixels, Integer.parseInt(pr));
 
-                    int[][] pixels = op.convertTo2DArray(op.image);
-                    op.image = op.Closing(pixels, Integer.parseInt(pr));
-
-                    Image image = SwingFXUtils.toFXImage(op.image, null);
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
@@ -177,12 +149,10 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 3: //erozja
                 try {
-                    OpenAndClose op = new OpenAndClose(ImageIO.read(StartWindow.obraz));
+                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+                    this.bufferedImage = OpenAndClose.erode(pixels, Integer.parseInt(pr));
 
-                    int[][] pixels = op.convertTo2DArray(op.image);
-                    op.image = op.erode(pixels, Integer.parseInt(pr));
-
-                    Image image = SwingFXUtils.toFXImage(op.image, null);
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
@@ -195,12 +165,10 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 4: //dylacja
                 try {
-                    OpenAndClose op = new OpenAndClose(ImageIO.read(StartWindow.obraz));
+                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+                    this.bufferedImage = OpenAndClose.dilate(pixels, Integer.parseInt(pr));
 
-                    int[][] pixels = op.convertTo2DArray(op.image);
-                    op.image = op.dilate(pixels, Integer.parseInt(pr));
-
-                    Image image = SwingFXUtils.toFXImage(op.image, null);
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {

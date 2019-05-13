@@ -266,6 +266,18 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 9: //zamkniecie elem. kołowym
+                try {
+                    CloseWithCircle withcircle = new CloseWithCircle(ImageIO.read(StartWindow.obraz));
+
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+
+                    withcircle.image = withcircle.closing(bufferedImage, 3);
+                    Image img = SwingFXUtils.toFXImage(withcircle.image, null);
+                    imageView.setImage(img);
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 10: //odbicie symetryczne

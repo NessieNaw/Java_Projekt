@@ -7,15 +7,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="500.0" prefWidth="708.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.mavenproject.Panel">
+<AnchorPane prefHeight="530.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javafx.mavenproject.Panel">
 
    <children>
       <Button fx:id="otwarcie" layoutX="1.0" layoutY="1.0" mnemonicParsing="false" onAction="#otwarcieOnClick" prefHeight="39.0" prefWidth="99.0" text="Otwarcie" />
       <Button fx:id="zamkniecie" layoutX="102.0" layoutY="1.0" mnemonicParsing="false" onAction="#zamkniecieOnClick" text="Zamknięcie" />
       <ImageView fx:id="imageView" fitHeight="418.0" fitWidth="506.0" layoutX="1.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" />
 
-      <Label layoutX="510.0" layoutY="80.0" text="Parametry:">
+      <Label layoutX="508.0" layoutY="75.0" text="Parametry:">
          <font>
             <Font size="20.0" />
          </font>
@@ -24,7 +23,7 @@
       <Label layoutX="510.0" layoutY="335.0" text="prog binaryzacji" />
       <TextField fx:id="progbinaryzacji" layoutX="510.0" layoutY="355.0" />
       <Label layoutX="510.0" layoutY="105.0" text="lamana A" />
-      <TextField fx:id="lamanaA" layoutX="510.0" layoutY="125.0" />
+      <TextField fx:id="lamanaA" layoutX="510.0" layoutY="122.0" />
       <Label layoutX="510.0" layoutY="150.0" text="lamana B" />
       <TextField fx:id="lamanaB" layoutX="510.0" layoutY="170.0" />
       <Label layoutX="510.0" layoutY="195.0" text="lamana C" />
@@ -52,12 +51,15 @@
       <Button fx:id="odlegloscgeodezyjna" layoutX="1.0" layoutY="40.0" mnemonicParsing="false" onAction="#odlGeoOnClick" text="Odl. geod." />
       <Button fx:id="binaryzacja" layoutX="405.0" layoutY="1.0" mnemonicParsing="false" onAction="#binaryzacjaOnClick" text="Binaryzacja" />
 
-      <Button fx:id="analizuj" layoutX="530.0" layoutY="420.0" mnemonicParsing="false" onAction="#params" prefHeight="39.0" prefWidth="149.0" text="Analizuj">
+      <Button fx:id="analizuj" layoutX="514.0" layoutY="447.0" mnemonicParsing="false" onAction="#params" prefHeight="39.0" prefWidth="149.0" text="Analizuj">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="save" layoutX="530.0" layoutY="460.0" mnemonicParsing="false" onAction="#save"  text="Zapisz"/>
+      <Button fx:id="save" layoutX="510.0" layoutY="486.0" mnemonicParsing="false" onAction="#save" text="Zapisz" />
+      <TextField fx:id="odlX" layoutX="510.0" layoutY="406.0" prefHeight="25.0" prefWidth="71.0" promptText="x"/>
+      <TextField fx:id="odlY" layoutX="589.0" layoutY="406.0" prefHeight="25.0" prefWidth="71.0" promptText="y" />
+      <Label layoutX="510.0" layoutY="389.0" prefHeight="17.0" prefWidth="149.0" text="odl. geodezyjna" />
 
    </children>
 </AnchorPane>

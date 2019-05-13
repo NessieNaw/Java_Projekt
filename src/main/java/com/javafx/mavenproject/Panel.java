@@ -40,6 +40,8 @@ public class Panel extends StartWindow
     @FXML private TextField lamanaC;
     @FXML private TextField oknovmf;
     @FXML private TextField promien;
+    @FXML private TextField odlX;
+    @FXML private TextField odlY;
 
     @FXML private javafx.scene.control.Button save;
 
@@ -57,6 +59,9 @@ public class Panel extends StartWindow
         lamanaC.setDisable(true);
         oknovmf.setDisable(true);
         promien.setDisable(true);
+        odlX.setDisable(true);
+        odlY.setDisable(true);
+
         if(which==1)
         {
             System.out.printf("Opcja logiczna");
@@ -86,7 +91,6 @@ public class Panel extends StartWindow
             zamknieciekolowe.setDisable(true);
             odlegloscgeodezyjna.setDisable(true);
         }
-
     }
 
     public  void reInitialize()
@@ -143,7 +147,9 @@ public class Panel extends StartWindow
         String lamB = lamanaB.getText();
         String lamC = lamanaC.getText();
         String oknoVMF = oknovmf.getText();
-        String pr = progbinaryzacji.getText();
+        String pr = promien.getText();
+        String x = odlX.getText();
+        String y = odlY.getText();
 
         switch(activeButton) {
             case 0: //otwarcie
@@ -288,7 +294,7 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 11: //mapa odl geodezyjnej
                 try {
-                    bufferedImage = GeodesicDistance.geodesicDistance(ImageIO.read(StartWindow.obraz), new Point(10, 10));
+                    bufferedImage = GeodesicDistance.geodesicDistance(ImageIO.read(StartWindow.obraz), new Point(Integer.parseInt(x), Integer.parseInt(y)));
                     Image imga = SwingFXUtils.toFXImage(bufferedImage, null);
                     imageView.setImage(imga);
                 }
@@ -320,64 +326,94 @@ public class Panel extends StartWindow
     }
 
     public void otwarcieOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         promien.setDisable(false);
         this.activeButton = 0;
     }
 
     public void zamkniecieOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         promien.setDisable(false);
         this.activeButton = 1;
     }
 
-    public void monoOnClick(ActionEvent actionEvent)
-    {
+    public void monoOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 2;
     }
 
     public void erozjaOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         promien.setDisable(false);
         this.activeButton = 3;
     }
 
     public void dylacjaOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         promien.setDisable(false);
         this.activeButton = 4;
     }
 
     public void normOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 5;
     }
 
     public void vmfOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 6;
     }
 
-    public void progowanieOnClick(ActionEvent actionEvent)
-    {
+    public void progowanieOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         progbinaryzacji.setDisable(false);
         this.activeButton = 7;
-
     }
 
     public void kirchOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 8;
     }
 
     public void zamkKoloOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 9;
     }
 
     public void odbicieOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 10;
     }
 
-    public void odlGeoOnClick(ActionEvent actionEvent)
-    {
+    public void odlGeoOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
+        odlX.setDisable(false);
+        odlY.setDisable(false);
         this.activeButton = 11;
 
     }
-    public void binaryzacjaOnClick(ActionEvent actionEvent)
-    {
+    public void binaryzacjaOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 12;
+    }
+
+    private void lockAllClearAll() {
+        progbinaryzacji.setDisable(true);
+        lamanaA.setDisable(true);
+        lamanaB.setDisable(true);
+        lamanaC.setDisable(true);
+        oknovmf.setDisable(true);
+        promien.setDisable(true);
+        odlX.setDisable(true);
+        odlY.setDisable(true);
+
+        progbinaryzacji.clear();
+        lamanaA.clear();
+        lamanaB.clear();
+        lamanaC.clear();
+        oknovmf.clear();
+        promien.clear();
+        odlX.clear();
+        odlY.clear();
     }
 }

@@ -150,41 +150,73 @@ public class Panel extends StartWindow
 
         switch(activeButton) {
             case 0: //otwarcie
-                int[][] pixels = ImageUtils.convertTo2DArray(bufferedImage);
-                this.bufferedImage = OpenAndClose.Opening(pixels, Integer.parseInt(pr));
+                try {
+                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+                    this.bufferedImage = OpenAndClose.Opening(pixels, Integer.parseInt(pr));
 
-                imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
+                    imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println("Radius cannot be <= 0!");
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 1: //zamkniecie
-                pixels = ImageUtils.convertTo2DArray(bufferedImage);
-                this.bufferedImage = OpenAndClose.Closing(pixels, Integer.parseInt(pr));
+                try {
+                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+                    this.bufferedImage = OpenAndClose.Closing(pixels, Integer.parseInt(pr));
 
-                imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
+                    imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println("Radius cannot be <= 0!");
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 2: //monochromatyzacja
-                this.bufferedImage = Monochrome.ToMonochrome(this.bufferedImage);
-                Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
-                imageView.setImage(image);
+                try {
+                    this.bufferedImage = Monochrome.ToMonochrome(ImageIO.read(StartWindow.obraz));
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    imageView.setImage(image);
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println("Radius cannot be <= 0!");
+                }
 
                 reInitialize();
                 break;
             //---------------------------------------------------------------------------------------------
             case 3: //erozja
-                pixels = ImageUtils.convertTo2DArray(this.bufferedImage);
-                this.bufferedImage = OpenAndClose.erode(pixels, Integer.parseInt(pr));
+                try {
+                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+                    this.bufferedImage = OpenAndClose.erode(pixels, Integer.parseInt(pr));
 
-                image = SwingFXUtils.toFXImage(this.bufferedImage, null);
-                imageView.setImage(image);
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    imageView.setImage(image);
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println("Radius cannot be <= 0!");
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 4: //dylacja
                 try {
-                    pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
                     this.bufferedImage = OpenAndClose.dilate(pixels, Integer.parseInt(pr));
 
-                    image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
@@ -211,7 +243,7 @@ public class Panel extends StartWindow
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
 
-                    int verge = Integer.parseInt(pr);
+                    int verge = Integer.parseInt(progBin);
                     hist.image = hist.MonoWithVerge(bufferedImage, verge);
 
                     Image img  = SwingFXUtils.toFXImage(hist.image, null);
@@ -246,13 +278,12 @@ public class Panel extends StartWindow
                     Symetry op = new Symetry(ImageIO.read(StartWindow.obraz));
                     op.ToSymetric();
 
-                    image = SwingFXUtils.toFXImage(op.im, null);
+                    Image image = SwingFXUtils.toFXImage(op.im, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
                 }
-
                 break;
             //---------------------------------------------------------------------------------------------
             case 11: //mapa odl geodezyjnej
@@ -269,7 +300,7 @@ public class Panel extends StartWindow
             case 12: //binaryzacja
                 try {
                     this.bufferedImage = Monochrome.ToBinary(ImageIO.read(StartWindow.obraz));
-                    image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
                     imageView.setImage(image);
                 }
                 catch (IOException e) {

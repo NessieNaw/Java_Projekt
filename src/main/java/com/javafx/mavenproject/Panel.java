@@ -1,19 +1,18 @@
 package com.javafx.mavenproject;
 
-
 import com.javafx.mavenproject.morfologicalTransfLibrary.*;
-
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +20,7 @@ import java.io.IOException;
 public class Panel extends StartWindow
 {
 
+    public javafx.scene.control.Label label_go;
     @FXML private ImageView imageView;
     @FXML private javafx.scene.control.Button otwarcie;
     @FXML private javafx.scene.control.Button zamkniecie;
@@ -41,19 +41,26 @@ public class Panel extends StartWindow
     @FXML private TextField lamanaC;
     @FXML private TextField oknovmf;
     @FXML private TextField promien;
+    @FXML private TextField odlX;
+    @FXML private TextField odlY;
+
+    @FXML private javafx.scene.control.Button save;
 
     private int activeButton;
     private BufferedImage bufferedImage;
 
     @FXML
     public void initialize() {
-        imageView.setImage(new Image(StartWindow.obraz.toURI().toString()));
-        progbinaryzacji.setDisable(true);
-        lamanaA.setDisable(true);
-        lamanaB.setDisable(true);
-        lamanaC.setDisable(true);
-        oknovmf.setDisable(true);
-        promien.setDisable(true);
+        try {
+            this.bufferedImage = ImageIO.read(StartWindow.obraz);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
+
+        lockAllClearAll();
+
         if(which==1)
         {
             System.out.printf("Opcja logiczna");
@@ -84,7 +91,6 @@ public class Panel extends StartWindow
             zamknieciekolowe.setDisable(true);
             odlegloscgeodezyjna.setDisable(true);
         }
-
     }
 
     public  void reInitialize()
@@ -114,23 +120,26 @@ public class Panel extends StartWindow
             progowanie.setDisable(false);
 
         }
+        Image ima = imageView.getImage();
+        this.bufferedImage =  SwingFXUtils.fromFXImage(ima, null);
+
     }
 
-    public void ShowImage(File obraz)
+    public int a = 0;
+    public void saveToFile(Image image)
     {
-        Image image = new Image(obraz.toURI().toString());
-        //imageView.setImage(image);// ????????
 
-        StackPane sp = new StackPane();
-        ImageView imgView = new ImageView(image);
-        sp.getChildren().add(imgView);
-
-        Scene scene = new Scene(sp);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-
+        File outputFile = new File("JavaFxImages"+a+".png");
+        //System.out.println("D:\\JavaFxImages"+a+".png");
+        a++;
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        try {
+            ImageIO.write(bImage, "png", outputFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
+
     public void params()
     {
         String progBin = progbinaryzacji.getText();
@@ -138,18 +147,17 @@ public class Panel extends StartWindow
         String lamB = lamanaB.getText();
         String lamC = lamanaC.getText();
         String oknoVMF = oknovmf.getText();
-        String pr = progbinaryzacji.getText();
-        String r=promien.getText();
+        String pr = promien.getText();
+        String x = odlX.getText();
+        String y = odlY.getText();
 
         switch(activeButton) {
             case 0: //otwarcie
-                System.out.println("In transformations");
                 try {
                     int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
                     this.bufferedImage = OpenAndClose.Opening(pixels, Integer.parseInt(pr));
 
-                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
-                    imageView.setImage(image);
+                    imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
                 }
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
@@ -164,8 +172,7 @@ public class Panel extends StartWindow
                     int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
                     this.bufferedImage = OpenAndClose.Closing(pixels, Integer.parseInt(pr));
 
-                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
-                    imageView.setImage(image);
+                    imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
                 }
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
@@ -176,25 +183,19 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 2: //monochromatyzacja
-                try
-                {
-                    Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
-
-                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
-
-                    mono.image = mono.ToMonochrome(bufferedImage);
-
-                    Image img  = SwingFXUtils.toFXImage(mono.image, null);
-                    imageView.setImage(img);
-
+                try {
+                    this.bufferedImage = Monochrome.ToMonochrome(ImageIO.read(StartWindow.obraz));
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    imageView.setImage(image);
                 }
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
                 }
-
+                catch (Exception e) {
+                    System.out.println("Radius cannot be <= 0!");
+                }
 
                 reInitialize();
-
                 break;
             //---------------------------------------------------------------------------------------------
             case 3: //erozja
@@ -233,16 +234,28 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 6: //VMF
+                try {
+                    this.bufferedImage = Median.medianFilter(ImageIO.read(StartWindow.obraz), Integer.parseInt(x), Integer.parseInt(y));
+
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    imageView.setImage(image);
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 7: //progowanie
                 try
                 {
-                    Histogram hist = new Histogram(ImageIO.read(StartWindow.obraz));
+                    Image ima = imageView.getImage();
+                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
+
+                    Histogram hist = new Histogram(im);
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
 
-                    int verge = Integer.parseInt(pr);
+                    int verge = Integer.parseInt(progBin);
                     hist.image = hist.MonoWithVerge(bufferedImage, verge);
 
                     Image img  = SwingFXUtils.toFXImage(hist.image, null);
@@ -273,7 +286,7 @@ public class Panel extends StartWindow
                     CloseWithCircle withcircle = new CloseWithCircle(ImageIO.read(StartWindow.obraz));
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
-                    withcircle.image = withcircle.closing(bufferedImage,Integer.parseInt(r) );
+                    withcircle.image = withcircle.closing(bufferedImage,Integer.parseInt(pr) );
                     Image img = SwingFXUtils.toFXImage(withcircle.image, null);
                     imageView.setImage(img);
                 }
@@ -294,23 +307,24 @@ public class Panel extends StartWindow
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
                 }
-
                 break;
             //---------------------------------------------------------------------------------------------
             case 11: //mapa odl geodezyjnej
+                try {
+                    bufferedImage = GeodesicDistance.geodesicDistance(ImageIO.read(StartWindow.obraz), new Point(Integer.parseInt(x), Integer.parseInt(y)));
+                    Image imga = SwingFXUtils.toFXImage(bufferedImage, null);
+                    imageView.setImage(imga);
+                }
+                catch(IOException e) {
+                   System.out.println(e.getMessage());
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 12: //binaryzacja
                 try {
-                    Monochrome mono = new Monochrome(ImageIO.read(StartWindow.obraz));
-
-                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
-
-                    mono.image = mono.ToBinary(bufferedImage);
-
-                    Image img  = SwingFXUtils.toFXImage(mono.image, null);
-                    imageView.setImage(img);
-
+                    this.bufferedImage = Monochrome.ToBinary(ImageIO.read(StartWindow.obraz));
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    imageView.setImage(image);
                 }
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
@@ -319,68 +333,119 @@ public class Panel extends StartWindow
                 reInitialize();
                 break;
         }
+
+    }
+    public void save(ActionEvent actionEvent)
+    {
+        Image ima = imageView.getImage();
+        saveToFile(ima);
     }
 
     public void otwarcieOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         promien.setDisable(false);
         this.activeButton = 0;
     }
 
     public void zamkniecieOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         promien.setDisable(false);
         this.activeButton = 1;
     }
 
-    public void monoOnClick(ActionEvent actionEvent)
-    {
+    public void monoOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 2;
     }
 
     public void erozjaOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         promien.setDisable(false);
         this.activeButton = 3;
     }
 
     public void dylacjaOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         promien.setDisable(false);
         this.activeButton = 4;
     }
 
     public void normOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 5;
     }
 
     public void vmfOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
+        odlX.setDisable(false);
+        odlY.setDisable(false);
+        this.label_go.setText("wielkosc okna");
         this.activeButton = 6;
     }
 
-    public void progowanieOnClick(ActionEvent actionEvent)
-    {
+    public void progowanieOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         progbinaryzacji.setDisable(false);
         this.activeButton = 7;
-
     }
 
     public void kirchOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 8;
     }
 
     public void zamkKoloOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         promien.setDisable(false);
         this.activeButton = 9;
     }
 
     public void odbicieOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 10;
     }
 
-    public void odlGeoOnClick(ActionEvent actionEvent)
-    {
+    public void odlGeoOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
+        this.label_go.setText("odl. geodezyjna");
+        odlX.setDisable(false);
+        odlY.setDisable(false);
         this.activeButton = 11;
 
     }
-    public void binaryzacjaOnClick(ActionEvent actionEvent)
-    {
+    public void binaryzacjaOnClick(ActionEvent actionEvent) {
+        lockAllClearAll();
         this.activeButton = 12;
+    }
+
+    private void lockAllClearAll() {
+        progbinaryzacji.setDisable(true);
+        lamanaA.setDisable(true);
+        lamanaB.setDisable(true);
+        lamanaC.setDisable(true);
+        oknovmf.setDisable(true);
+        promien.setDisable(true);
+        odlX.setDisable(true);
+        odlY.setDisable(true);
+
+        progbinaryzacji.clear();
+        lamanaA.clear();
+        lamanaB.clear();
+        lamanaC.clear();
+        oknovmf.clear();
+        promien.clear();
+        odlX.clear();
+        odlY.clear();
+    }
+
+    public void zaladujPonownie(ActionEvent actionEvent) {
+        lockAllClearAll();
+        try {
+            this.bufferedImage = ImageIO.read(StartWindow.obraz);
+            imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
+        }
+        catch (IOException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
     }
 }

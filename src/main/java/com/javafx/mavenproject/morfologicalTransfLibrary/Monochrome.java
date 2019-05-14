@@ -10,15 +10,8 @@ import java.awt.image.DataBufferByte;
 
 public class Monochrome extends StartWindow
 {
-    public BufferedImage image;
 
-    public Monochrome(BufferedImage image)
-    {
-        this.image = image;
-    }
-
-
-    public BufferedImage ToMonochrome( BufferedImage bufferedImage)
+    public static BufferedImage ToMonochrome( BufferedImage bufferedImage)
     {
         BufferedImage binaryImage = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
 
@@ -48,7 +41,7 @@ public class Monochrome extends StartWindow
         return binaryImage;
     }
 
-    public BufferedImage ToBinary( BufferedImage bufferedImage)
+    public static BufferedImage ToBinary( BufferedImage bufferedImage)
     {
         BufferedImage binaryImage = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
 

@@ -211,7 +211,7 @@ public class Panel extends StartWindow
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
 
-                    int verge = Integer.parseInt(progBin);
+                    int verge = Integer.parseInt(pr);
                     hist.image = hist.MonoWithVerge(bufferedImage, verge);
 
                     Image img  = SwingFXUtils.toFXImage(hist.image, null);

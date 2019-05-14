@@ -20,6 +20,7 @@ import java.io.IOException;
 public class Panel extends StartWindow
 {
 
+    public javafx.scene.control.Label label_go;
     @FXML private ImageView imageView;
     @FXML private javafx.scene.control.Button otwarcie;
     @FXML private javafx.scene.control.Button zamkniecie;
@@ -126,8 +127,8 @@ public class Panel extends StartWindow
     public void saveToFile(Image image)
     {
 
-        File outputFile = new File("D:\\JavaFxImages"+a+".png");
-        System.out.println("D:\\JavaFxImages"+a+".png");
+        File outputFile = new File("JavaFxImages"+a+".png");
+        //System.out.println("D:\\JavaFxImages"+a+".png");
         a++;
         BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
         try {
@@ -231,6 +232,15 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 6: //VMF
+                try {
+                    this.bufferedImage = Median.medianFilter(ImageIO.read(StartWindow.obraz), Integer.parseInt(x), Integer.parseInt(y));
+
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    imageView.setImage(image);
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 7: //progowanie
@@ -354,6 +364,9 @@ public class Panel extends StartWindow
 
     public void vmfOnClick(ActionEvent actionEvent) {
         lockAllClearAll();
+        odlX.setDisable(false);
+        odlY.setDisable(false);
+        this.label_go.setText("wielkosc okna");
         this.activeButton = 6;
     }
 
@@ -380,6 +393,7 @@ public class Panel extends StartWindow
 
     public void odlGeoOnClick(ActionEvent actionEvent) {
         lockAllClearAll();
+        this.label_go.setText("odl. geodezyjna");
         odlX.setDisable(false);
         odlY.setDisable(false);
         this.activeButton = 11;

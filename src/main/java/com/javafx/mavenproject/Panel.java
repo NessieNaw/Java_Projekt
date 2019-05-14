@@ -79,6 +79,7 @@ public class Panel extends StartWindow
             monochromatyzacja.setDisable(true);
             vmf.setDisable(true);
             odlegloscgeodezyjna.setDisable(true);
+            zamknieciekolowe.setDisable(true);
 
         }if(which==3)
         {
@@ -108,6 +109,7 @@ public class Panel extends StartWindow
             otwarcie.setDisable(false);
             zamkniecie.setDisable(false);
             odlegloscgeodezyjna.setDisable(false);
+
         }
         if(which==2)
         {
@@ -280,6 +282,17 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 9: //zamkniecie elem. kołowym
+                try {
+                    CloseWithCircle withcircle = new CloseWithCircle(ImageIO.read(StartWindow.obraz));
+
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+                    withcircle.image = withcircle.closing(bufferedImage,Integer.parseInt(pr) );
+                    Image img = SwingFXUtils.toFXImage(withcircle.image, null);
+                    imageView.setImage(img);
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 10: //odbicie symetryczne
@@ -383,6 +396,7 @@ public class Panel extends StartWindow
 
     public void zamkKoloOnClick(ActionEvent actionEvent) {
         lockAllClearAll();
+        promien.setDisable(false);
         this.activeButton = 9;
     }
 

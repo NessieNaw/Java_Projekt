@@ -21,7 +21,7 @@ public class CloseWithCircle {
         return sum;
     }
 
-    public BufferedImage dilate(BufferedImage image, int radius) {
+    public BufferedImage erode(BufferedImage image, int radius) {
         int black = new Color(0, 0, 0).getRGB();
         int white = new Color(255, 255, 255).getRGB();
         BufferedImage img = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -43,7 +43,7 @@ public class CloseWithCircle {
 
         return img;
     }
-    public BufferedImage erode(BufferedImage image, int radius) {
+    public BufferedImage dilate(BufferedImage image, int radius) {
 
         BufferedImage img = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         int black = new Color(0, 0, 0).getRGB();

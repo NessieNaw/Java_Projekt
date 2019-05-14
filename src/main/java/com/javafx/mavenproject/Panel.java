@@ -72,6 +72,7 @@ public class Panel extends StartWindow
             monochromatyzacja.setDisable(true);
             vmf.setDisable(true);
             odlegloscgeodezyjna.setDisable(true);
+            zamknieciekolowe.setDisable(true);
 
         }if(which==3)
         {
@@ -102,6 +103,7 @@ public class Panel extends StartWindow
             otwarcie.setDisable(false);
             zamkniecie.setDisable(false);
             odlegloscgeodezyjna.setDisable(false);
+
         }
         if(which==2)
         {
@@ -137,6 +139,7 @@ public class Panel extends StartWindow
         String lamC = lamanaC.getText();
         String oknoVMF = oknovmf.getText();
         String pr = progbinaryzacji.getText();
+        String r=promien.getText();
 
         switch(activeButton) {
             case 0: //otwarcie
@@ -270,8 +273,7 @@ public class Panel extends StartWindow
                     CloseWithCircle withcircle = new CloseWithCircle(ImageIO.read(StartWindow.obraz));
 
                     BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
-
-                    withcircle.image = withcircle.closing(bufferedImage, 3);
+                    withcircle.image = withcircle.closing(bufferedImage,Integer.parseInt(r) );
                     Image img = SwingFXUtils.toFXImage(withcircle.image, null);
                     imageView.setImage(img);
                 }
@@ -364,6 +366,7 @@ public class Panel extends StartWindow
     }
 
     public void zamkKoloOnClick(ActionEvent actionEvent) {
+        promien.setDisable(false);
         this.activeButton = 9;
     }
 

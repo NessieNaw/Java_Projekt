@@ -56,7 +56,7 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="save" layoutX="510.0" layoutY="486.0" mnemonicParsing="false" onAction="#save" text="Zapisz" />
+      <Button fx:id="save" layoutX="514.0" layoutY="486.0" mnemonicParsing="false" onAction="#save" text="Zapisz" />
       <TextField fx:id="odlX" layoutX="510.0" layoutY="406.0" prefHeight="25.0" prefWidth="71.0" promptText="x" />
       <TextField fx:id="odlY" layoutX="589.0" layoutY="406.0" prefHeight="25.0" prefWidth="71.0" promptText="y" />
       <Label layoutX="510.0" layoutY="389.0" prefHeight="17.0" prefWidth="149.0" text="odl. geodezyjna" />

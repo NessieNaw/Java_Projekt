@@ -32,8 +32,8 @@ public class Median {
             for(int j=edgeY; j<height-edgeY-1; j++) {
                 //int i=0;
                 int k = 0;
-                for(int fx=0; fx<windowWidth;fx++) {
-                    for(int fy=0; fy<windowHeight; fy++) {
+                for(int fx=0; fx<3;fx++) {
+                    for(int fy=0; fy<3; fy++) {
                         //window[i] = image[y+fy-edgeY][x+fx-edgeX];
                         //i++;
                 /*pixel[0]=new Color(bufferedImage.getRGB(i-1,j-1));
@@ -52,7 +52,7 @@ public class Median {
                 }*/
 
                 A[k] = bufferedImage.getRGB(i + fx-edgeX, j+fy-edgeY) >> 24 & 0xff;
-                R[k] =  bufferedImage.getRGB(i + fx-edgeX, j+fy-edgeY) >> 16 & 0xff;
+                R[k] = bufferedImage.getRGB(i + fx-edgeX, j+fy-edgeY) >> 16 & 0xff;
                 G[k] = bufferedImage.getRGB(i + fx-edgeX, j+fy-edgeY) >> 8 & 0xff;
                 B[k] = bufferedImage.getRGB(i + fx-edgeX, j+fy-edgeY) & 0xff;
                 k++;
@@ -62,9 +62,9 @@ public class Median {
                     //Arrays.sort(R);
                     //Arrays.sort(G);
                     //Arrays.sort(B);
-                    double dist = calculateMinDistance(R, G, B);
+                    //double dist = calculateMinDistance(R, G, B);
 
-                    result.setRGB(i,j, (int)dist);//convertFromRGBtoInt(R[4], G[4], B[4]));
+                    result.setRGB(i,j, calculateMinDistance(R, G, B));//convertFromRGBtoInt(R[4], G[4], B[4]));
                 }
             }
         }
@@ -80,20 +80,30 @@ public class Median {
     }
 
     //private static double calculateMinDistance(int R0, int G0, int B0, int R, int G, int B) {
-    private static double calculateMinDistance(int[] R, int[] G, int[] B) {
+    private static int calculateMinDistance(int[] R, int[] G, int[] B) {
         //double distance = Math.sqrt(Math.pow(R0-R, R0-R)+Math.pow(G0-G, G0-G) + Math.pow(B0-B, B0-B));
-        double[] distance = new double[R.length];
-        //Map<Double, int[]> map = new HashMap<Double, int[]>();
-        for(int i = 0; i<R.length; i++) {
-            distance[i] = Math.sqrt(Math.pow(R[i]-R[4], R[i]-R[4])+Math.pow(G[i]-G[4], G[i]-G[4]) + Math.pow(B[i]-B[4], B[i]-B[4]));
+        //double[] distance = new double[R.length];
+        double distanceMin = 0.0;
+        int minDistR = 0;
+        int minDistG = 0;
+        int minDistB = 0;
+        for(int i = 0; i<9; i++) {
+            if (i == 4)
+                continue;
+            double distance = Math.sqrt(Math.pow(R[4]-R[i], 2)+Math.pow(G[4]-G[i], 2) + Math.pow(B[4]-B[i], 2));
+            if((distance < distanceMin) || (i == 0)) {
+                distanceMin = distance;
+                minDistR = R[i];
+                minDistG = G[i];
+                minDistB = B[i];
+            }
             //map.put(distance[i], new int[])
         }
-        Arrays.sort(distance);
+        //Arrays.sort(distance);
         //System.out.println(distance[0]);
 
-        return distance[1];
-        //return convertFromRGBtoInt()
-
+        //return distance[1];
+        return convertFromRGBtoInt(minDistR, minDistG, minDistB);
     }
 
 }

@@ -31,7 +31,7 @@ public class GeodesicDistance {
         marker[point.x][point.y] = 1;
 
         int k = 0;
-        while (k < (height + width)) {
+        while (k < (height + width)*3) {
             marker = dilateArray2DtoGeoMap(marker,dilated);
             marker = logicalAND(marker, binary);
             k++;

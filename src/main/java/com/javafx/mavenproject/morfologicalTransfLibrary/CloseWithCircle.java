@@ -12,7 +12,7 @@ public class CloseWithCircle {
         this.image = image;
     }
 
-    public double IsLogical(BufferedImage image, int x, int y) {
+    public double ConvertPixelToDouble(BufferedImage image, int x, int y) {
         Color color = new Color(image.getRGB(x, y));
         double r = color.getRed() * 0.299;
         double g = color.getGreen() * 0.587;
@@ -27,7 +27,7 @@ public class CloseWithCircle {
         BufferedImage img = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int i = radius; i < image.getHeight() - radius; i++) {
             for (int j = radius; j < image.getWidth() - radius; j++) {
-                if (IsLogical(image, j, i) == 0) {
+                if (ConvertPixelToDouble(image, j, i) == 0) {
                     if (inCircle(image, radius, j, i, 255)) {
                         img.setRGB(j, i, white);
                     }
@@ -51,7 +51,7 @@ public class CloseWithCircle {
         for (int i = radius; i < image.getHeight() - radius; i++) {
             for (int j = radius; j < image.getWidth() - radius; j++) {
 
-                if (IsLogical(image, j, i) == 255) {
+                if (ConvertPixelToDouble(image, j, i) == 255) {
                     if (inCircle(image, radius, j, i, 0)) {
                         img.setRGB(j, i, black);
                       //  System.out.printf("1");
@@ -72,12 +72,12 @@ public class CloseWithCircle {
     private boolean inCircle(BufferedImage image, int radius, int x, int y, int val) {
         for (int i = y - radius; i < y + radius; i++) {
             for (int j = x; (j - x) * (j - x) + (i - y) * (i - y) <= radius * radius; j--) {
-                if (IsLogical(image, j, i) == val) {
+                if (ConvertPixelToDouble(image, j, i) == val) {
                     return true;
                 }
             }
             for (int j = x + 1; (j - x) * (j - x) + (i - y) * (i - y) <= radius * radius; j++) {
-                if (IsLogical(image, j, i) == val) {
+                if (ConvertPixelToDouble(image, j, i) == val) {
                     return true;
                 }
             }

@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Median {
 
     public static BufferedImage medianFilter(BufferedImage bufferedImage, int windowWidth, int windowHeight) {
-        BufferedImage result = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
+        BufferedImage result = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 
         int width = bufferedImage.getWidth();
         int height = bufferedImage.getHeight();

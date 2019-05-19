@@ -76,7 +76,7 @@ public class Panel extends StartWindow
             monochromatyzacja.setDisable(true);
             vmf.setDisable(true);
             odlegloscgeodezyjna.setDisable(true);
-            zamknieciekolowe.setDisable(true);
+           // zamknieciekolowe.setDisable(true);
 
         }if(which==3)
         {

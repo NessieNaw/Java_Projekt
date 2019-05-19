@@ -4,12 +4,9 @@ import com.javafx.mavenproject.morfologicalTransfLibrary.*;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -93,7 +90,7 @@ public class Panel extends StartWindow
         }
     }
 
-    public  void reInitialize()
+    private void reInitialize()
     {
         if(which==1)
         {
@@ -125,8 +122,8 @@ public class Panel extends StartWindow
 
     }
 
-    public int a = 0;
-    public void saveToFile(Image image)
+    private int a = 0;
+    private void saveToFile(Image image)
     {
 
         File outputFile = new File("JavaFxImages"+a+".png");
@@ -235,7 +232,7 @@ public class Panel extends StartWindow
             //---------------------------------------------------------------------------------------------
             case 6: //VMF
                 try {
-                    this.bufferedImage = Median.medianFilter(ImageIO.read(StartWindow.obraz), Integer.parseInt(x), Integer.parseInt(y));
+                    this.bufferedImage = VMF.vmfFilter(ImageIO.read(StartWindow.obraz), Integer.parseInt(x), Integer.parseInt(y));
 
                     Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
                     imageView.setImage(image);

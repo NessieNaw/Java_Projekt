@@ -23,17 +23,17 @@ public class Median {
 
         Color[] pixel = new Color[9];
 
-        int[] A=new int[9];
-        int[] R=new int[9];
-        int[] B=new int[9];
-        int[] G=new int[9];
+        int[] A=new int[windowWidth*windowHeight];
+        int[] R=new int[windowWidth*windowHeight];
+        int[] B=new int[windowWidth*windowHeight];
+        int[] G=new int[windowWidth*windowHeight];
 
         for(int i=edgeX; i<width-edgeX-1; i++) {
             for(int j=edgeY; j<height-edgeY-1; j++) {
                 //int i=0;
                 int k = 0;
-                for(int fx=0; fx<3;fx++) {
-                    for(int fy=0; fy<3; fy++) {
+                for(int fx=0; fx<windowWidth;fx++) {
+                    for(int fy=0; fy<windowHeight; fy++) {
                         //window[i] = image[y+fy-edgeY][x+fx-edgeX];
                         //i++;
                 /*pixel[0]=new Color(bufferedImage.getRGB(i-1,j-1));
@@ -87,10 +87,10 @@ public class Median {
         int minDistR = 0;
         int minDistG = 0;
         int minDistB = 0;
-        for(int i = 0; i<9; i++) {
-            if (i == 4)
+        for(int i = 0; i<R.length; i++) {
+            if (i == R.length/2)
                 continue;
-            double distance = Math.sqrt(Math.pow(R[4]-R[i], 2)+Math.pow(G[4]-G[i], 2) + Math.pow(B[4]-B[i], 2));
+            double distance = Math.sqrt(Math.pow(R[R.length/2]-R[i], 2)+Math.pow(G[R.length/2]-G[i], 2) + Math.pow(B[R.length/2]-B[i], 2));
             if((distance < distanceMin) || (i == 0)) {
                 distanceMin = distance;
                 minDistR = R[i];

@@ -2,6 +2,8 @@ package com.javafx.mavenproject.morfologicalTransfLibrary;
 
 import java.awt.image.BufferedImage;
 
+import static com.javafx.mavenproject.morfologicalTransfLibrary.ImageUtils.convertFromRGBtoInt;
+
 public class VMF {
 
     public static BufferedImage vmfFilter(BufferedImage bufferedImage, int windowWidth, int windowHeight) {
@@ -32,14 +34,6 @@ public class VMF {
             }
         }
         return result;
-    }
-
-    private static int convertFromRGBtoInt(int R, int G, int B) {
-        int rgb = R;
-        rgb = (rgb << 8) + G;
-        rgb = (rgb << 8) + B;
-
-        return rgb;
     }
 
     private static int calculateMinDistance(int[] R, int[] G, int[] B) {

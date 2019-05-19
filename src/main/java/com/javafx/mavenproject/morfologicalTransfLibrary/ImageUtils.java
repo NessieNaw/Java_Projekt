@@ -47,4 +47,12 @@ public class ImageUtils {
         }
         return result;
     }
+
+    public static int convertFromRGBtoInt(int R, int G, int B) {
+        int rgb = R;
+        rgb = (rgb << 8) + G;
+        rgb = (rgb << 8) + B;
+
+        return rgb;
+    }
 }

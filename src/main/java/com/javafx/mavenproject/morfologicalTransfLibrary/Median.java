@@ -88,16 +88,29 @@ public class Median {
         int minDistG = 0;
         int minDistB = 0;
         for(int i = 0; i<R.length; i++) {
-            if (i == R.length/2)
-                continue;
-            double distance = Math.sqrt(Math.pow(R[R.length/2]-R[i], 2)+Math.pow(G[R.length/2]-G[i], 2) + Math.pow(B[R.length/2]-B[i], 2));
-            if((distance < distanceMin) || (i == 0)) {
-                distanceMin = distance;
+            double localMinDistance = 0.0;
+            for (int j = 0; j < R.length; j++) {
+                //if (i == R.length/2)
+                //continue;
+                //double distance = Math.sqrt(Math.pow(R[R.length/2]-R[i], 2)+Math.pow(G[R.length/2]-G[i], 2) + Math.pow(B[R.length/2]-B[i], 2));
+                //double distance = Math.sqrt(Math.pow(minDistR-R[i], 2) + Math.pow(minDistG-G[i], 2) + Math.pow(minDistB-B[i], 2));
+                //sumanyczna odległość w stosunku do inncyh wektorów
+                localMinDistance += Math.sqrt(Math.pow(R[i]-R[j], 2) + Math.pow(G[i]-G[j], 2) + Math.pow(B[i]-B[j], 2));
+
+                /*if ((distance < distanceMin) || (i == 0)) {
+                    distanceMin = distance;
+                    minDistR = R[i];
+                    minDistG = G[i];
+                    minDistB = B[i];
+                }*/
+                //map.put(distance[i], new int[])
+            }
+            if ((localMinDistance < distanceMin) || (i == 0)) {
+                distanceMin = localMinDistance;
                 minDistR = R[i];
                 minDistG = G[i];
                 minDistB = B[i];
             }
-            //map.put(distance[i], new int[])
         }
         //Arrays.sort(distance);
         //System.out.println(distance[0]);

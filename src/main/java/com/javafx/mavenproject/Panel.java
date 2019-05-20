@@ -33,9 +33,13 @@ public class Panel extends StartWindow
     @FXML private javafx.scene.control.Button odlegloscgeodezyjna;
     @FXML private javafx.scene.control.Button binaryzacja;
     @FXML private TextField progbinaryzacji;
-    @FXML private TextField lamanaA;
-    @FXML private TextField lamanaB;
-    @FXML private TextField lamanaC;
+    @FXML private TextField ax;
+    @FXML private TextField ay;
+    @FXML private TextField bx;
+    @FXML private TextField by;
+    @FXML private TextField cx;
+    @FXML private TextField cy;
+
     @FXML private TextField oknovmf;
     @FXML private TextField promien;
     @FXML private TextField odlX;
@@ -140,9 +144,12 @@ public class Panel extends StartWindow
     public void params()
     {
         String progBin = progbinaryzacji.getText();
-        String lamA = lamanaA.getText();
-        String lamB = lamanaB.getText();
-        String lamC = lamanaC.getText();
+        String axx = ax.getText();
+        String ayy = ay.getText();
+        String bxx = bx.getText();
+        String byy = by.getText();
+        String cxx = cx.getText();
+        String cyy = cy.getText();
         String oknoVMF = oknovmf.getText();
         String pr = promien.getText();
         String x = odlX.getText();
@@ -228,6 +235,36 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 5: //normalizacja
+                try
+                {
+                    Image ima = imageView.getImage();
+                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
+
+                    Norm norm = new Norm(im);
+
+                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+
+                    int ax2 = Integer.parseInt(axx);
+                    int ay2 = Integer.parseInt(ayy);
+                    int bx2 = Integer.parseInt(bxx);
+                    int by2 = Integer.parseInt(byy);
+                    int cx2 = Integer.parseInt(cxx);
+                    int cy2 = Integer.parseInt(cyy);
+
+
+                    norm.image = norm.Normalize(bufferedImage,ax2,ay2,bx2,by2,cx2,cy2);
+
+                    Image img  = SwingFXUtils.toFXImage(norm.image, null);
+                    imageView.setImage(img);
+
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
+
+                reInitialize();
+
+
                 break;
             //---------------------------------------------------------------------------------------------
             case 6: //VMF
@@ -369,6 +406,12 @@ public class Panel extends StartWindow
 
     public void normOnClick(ActionEvent actionEvent) {
         lockAllClearAll();
+        ax.setDisable(false);
+        ay.setDisable(false);
+        bx.setDisable(false);
+        by.setDisable(false);
+        cx.setDisable(false);
+        cy.setDisable(false);
         this.activeButton = 5;
     }
 
@@ -417,18 +460,24 @@ public class Panel extends StartWindow
 
     private void lockAllClearAll() {
         progbinaryzacji.setDisable(true);
-        lamanaA.setDisable(true);
-        lamanaB.setDisable(true);
-        lamanaC.setDisable(true);
+        ax.setDisable(true);
+        ay.setDisable(true);
+        bx.setDisable(true);
+        by.setDisable(true);
+        cx.setDisable(true);
+        cy.setDisable(true);
         oknovmf.setDisable(true);
         promien.setDisable(true);
         odlX.setDisable(true);
         odlY.setDisable(true);
 
         progbinaryzacji.clear();
-        lamanaA.clear();
-        lamanaB.clear();
-        lamanaC.clear();
+        ax.setDisable(true);
+        ay.setDisable(true);
+        bx.setDisable(true);
+        by.setDisable(true);
+        cx.setDisable(true);
+        cy.setDisable(true);
         oknovmf.clear();
         promien.clear();
         odlX.clear();

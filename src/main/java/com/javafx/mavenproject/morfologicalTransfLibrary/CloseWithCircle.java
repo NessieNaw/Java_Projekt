@@ -12,7 +12,7 @@ public class CloseWithCircle {
         this.image = image;
     }
 
-    public double IsLogical(BufferedImage image, int x, int y) {
+    private double ConvertPixelToDouble(BufferedImage image, int x, int y) {
         Color color = new Color(image.getRGB(x, y));
         double r = color.getRed() * 0.299;
         double g = color.getGreen() * 0.587;
@@ -21,68 +21,67 @@ public class CloseWithCircle {
         return sum;
     }
 
-    public BufferedImage erode(BufferedImage image, int radius) {
-        int black = new Color(0, 0, 0).getRGB();
-        int white = new Color(255, 255, 255).getRGB();
+   private BufferedImage erode(BufferedImage image, int radius) {
+        int kol;
         BufferedImage img = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
         for (int i = radius; i < image.getHeight() - radius; i++) {
             for (int j = radius; j < image.getWidth() - radius; j++) {
-                if (IsLogical(image, j, i) == 0) {
-                    if (inCircle(image, radius, j, i, 255)) {
-                        img.setRGB(j, i, white);
-                    }
-                    else {
-                        img.setRGB(j, i, black);
-                    }
-                }
-                else {
-                    img.setRGB(j, i, white);
-                }
+                //if (ConvertPixelToDouble(image, j, i) == 0) {
+                int val=(int)ConvertPixelToDouble(image,j,i);
+                int kolor=(int)Circle(image,radius,j,i,val,"erode");
+                kol=new Color(kolor,kolor,kolor).getRGB();
+                img.setRGB(j,i,kol);
             }
         }
 
         return img;
     }
-    public BufferedImage dilate(BufferedImage image, int radius) {
+    private BufferedImage dilate(BufferedImage image, int radius) {
 
         BufferedImage img = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
-        int black = new Color(0, 0, 0).getRGB();
-        int white = new Color(255, 255, 255).getRGB();
+        int kol;
         for (int i = radius; i < image.getHeight() - radius; i++) {
             for (int j = radius; j < image.getWidth() - radius; j++) {
-
-                if (IsLogical(image, j, i) == 255) {
-                    if (inCircle(image, radius, j, i, 0)) {
-                        img.setRGB(j, i, black);
-                      //  System.out.printf("1");
-                    }
-                    else {
-                        img.setRGB(j, i, white);
-                    //    System.out.printf("0");
-                    }
-                } else {
-                    img.setRGB(j, i, black);
-                  //  System.out.printf("2 ");
-                }
+                int val=(int)ConvertPixelToDouble(image,j,i);
+                int kolor=(int)Circle(image,radius,j,i,val,"dilate");
+                kol=new Color(kolor,kolor,kolor).getRGB();
+                img.setRGB(j,i,kol);
             }
         }
 
         return img;
     }
-    private boolean inCircle(BufferedImage image, int radius, int x, int y, int val) {
+    private double Circle(BufferedImage image, int radius, int x, int y, int val, String str) {
+        double zm=val;
         for (int i = y - radius; i < y + radius; i++) {
             for (int j = x; (j - x) * (j - x) + (i - y) * (i - y) <= radius * radius; j--) {
-                if (IsLogical(image, j, i) == val) {
-                    return true;
+                if(str=="erode") {
+                    if (ConvertPixelToDouble(image, j, i) > zm) {
+                        zm = ConvertPixelToDouble(image, j, i);
+                    }
+                }
+                else if(str=="dilate")
+                {
+                    if (ConvertPixelToDouble(image, j, i) < zm) {
+                        zm = ConvertPixelToDouble(image, j, i);
+                    }
                 }
             }
             for (int j = x + 1; (j - x) * (j - x) + (i - y) * (i - y) <= radius * radius; j++) {
-                if (IsLogical(image, j, i) == val) {
-                    return true;
+                if(str=="erode") {
+                    if (ConvertPixelToDouble(image, j, i) > zm) {
+                        zm = ConvertPixelToDouble(image, j, i);
+                    }
+                }
+                else if(str=="dilate")
+                {
+                    if (ConvertPixelToDouble(image, j, i) < zm) {
+                        zm = ConvertPixelToDouble(image, j, i);
+                    }
                 }
             }
         }
-        return false;
+        return zm;
     }
     public BufferedImage closing(BufferedImage image, int radius) {
         BufferedImage dilate = dilate(image, radius);

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -45,8 +46,6 @@ public class Panel extends StartWindow
     @FXML private TextField odlX;
     @FXML private TextField odlY;
 
-    @FXML private javafx.scene.control.Button save;
-
     private int activeButton;
     private BufferedImage bufferedImage;
 
@@ -80,7 +79,6 @@ public class Panel extends StartWindow
             monochromatyzacja.setDisable(true);
             vmf.setDisable(true);
             odlegloscgeodezyjna.setDisable(true);
-           // zamknieciekolowe.setDisable(true);
 
         }if(which==3)
         {
@@ -276,6 +274,9 @@ public class Panel extends StartWindow
                 }
                 catch (IOException e) {
                     System.out.println("Caught exception: " + e.getMessage());
+                }
+                catch (Exception e) {
+                    System.out.println("Parsing error, please set proper value");
                 }
                 break;
             //---------------------------------------------------------------------------------------------
@@ -486,12 +487,14 @@ public class Panel extends StartWindow
 
     public void zaladujPonownie(ActionEvent actionEvent) {
         lockAllClearAll();
+
+        MainJavaFx ms = new MainJavaFx();
+        Stage s = new Stage();
         try {
-            this.bufferedImage = ImageIO.read(StartWindow.obraz);
-            imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
+            ms.start(s);
         }
-        catch (IOException e) {
-            System.out.println("Caught exception: " + e.getMessage());
+        catch (Exception e) {
+            System.out.println("Starting new window error: " + e.getMessage());
         }
     }
 }

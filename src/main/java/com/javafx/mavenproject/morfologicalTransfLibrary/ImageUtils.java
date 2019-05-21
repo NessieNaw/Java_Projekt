@@ -55,4 +55,21 @@ public class ImageUtils {
 
         return rgb;
     }
+
+    public static boolean isGreyscale(BufferedImage image)
+    {
+        int pixel,red, green, blue;
+        for (int i = 0; i < image.getWidth(); i++)
+        {
+            for (int j = 0; j < image.getHeight(); j++)
+            {
+                pixel = image.getRGB(i, j);
+                red = (pixel >> 16) & 0xff;
+                green = (pixel >> 8) & 0xff;
+                blue = (pixel) & 0xff;
+                if (red != green || green != blue ) return false;
+            }
+        }
+        return true;
+    }
 }

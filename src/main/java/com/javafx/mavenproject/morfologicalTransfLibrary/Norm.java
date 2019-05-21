@@ -52,6 +52,7 @@ public class Norm extends StartWindow
             u = 255;
         }
 
+        //System.out.println("m,n,l,u"+' '+m+' '+n+' '+l+' '+u);
 
     }
     public static BufferedImage Normalize( BufferedImage bufferedImage,int axx, int ayy, int bxx, int byy, int cxx, int cyy )
@@ -71,21 +72,44 @@ public class Norm extends StartWindow
                 int green = mycolor.getGreen();
                 int blue = mycolor.getBlue();
 
+                System.out.println("rgb"+' '+red+' '+green+' '+blue);
+
+                Check(axx,ayy,bxx,byy,cxx,cyy,red);
+                // System.out.println("m,n,l,u"+' '+m+' '+n+' '+l+' '+u);
                 int newRed = FromPoints(l,m, u, n, red);
+
+                Check(axx,ayy,bxx,byy,cxx,cyy,green);
+               // System.out.println("m,n,l,u"+' '+m+' '+n+' '+l+' '+u);
                 int newGreen = FromPoints(l,m, u, n, green);
+
+                Check(axx,ayy,bxx,byy,cxx,cyy,blue);
+              //  System.out.println("m,n,l,u"+' '+m+' '+n+' '+l+' '+u);
                 int newBlue = FromPoints(l,m, u, n, blue);
 
-                //zamieniac  color.setRGB(x,y,kolor )
+                int converted = convertFromRGBtoInt(newRed, newGreen, newBlue);
+                System.out.println("new rgb"+' '+newRed+' '+newGreen+' '+newBlue);
+
+                System.out.println("converted value "+converted);
+                zeruj(l,m,u,n);
+
+                normalImage.setRGB(x,y,converted);
 
             }
 
 
-        return bufferedImage;
+        return normalImage;
     }
 
+    private static void zeruj(int l, int m, int u, int n)
+    {
+        m=0;
+        n=0;
+        l=0;
+        u=0;
+    }
     private static int FromPoints(int l, int m, int u, int n,int kolor )
     {
-        return ((l-u)/(m-n))*(kolor-m);
+        return ((l-u)/(m-n))*(kolor-m)+l;
     }
 
 

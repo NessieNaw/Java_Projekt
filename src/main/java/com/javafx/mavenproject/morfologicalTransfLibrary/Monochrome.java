@@ -65,10 +65,6 @@ public class Monochrome extends StartWindow
 
     private static int rgbToGray(int red, int green, int blue)
     {
-     //   int r = (red >> 16) & 0xff;
-       // int g = (green >> 8) & 0xff;
-        //int b = blue & 0xff;
-
         int r= red;
         int g = green;
         int b = blue;

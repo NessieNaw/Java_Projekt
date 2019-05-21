@@ -75,6 +75,8 @@ public class Norm extends StartWindow
                 int newGreen = FromPoints(l,m, u, n, green);
                 int newBlue = FromPoints(l,m, u, n, blue);
 
+                //zamieniac  color.setRGB(x,y,kolor )
+
             }
 
 

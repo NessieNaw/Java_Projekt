@@ -111,7 +111,7 @@ public class Norm extends StartWindow
         double e = d*c;
         double f = e+l;
 
-        
+
         return (int) f;
     }
 

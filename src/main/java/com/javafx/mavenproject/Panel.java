@@ -228,6 +228,16 @@ public class Panel extends StartWindow
                 break;
             //---------------------------------------------------------------------------------------------
             case 5: //normalizacja
+                try {
+                    Standardization s = new Standardization();
+                    this.bufferedImage = s.standardizeRGB(ImageIO.read(StartWindow.obraz), 0.3);
+
+                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+                    imageView.setImage(image);
+                }
+                catch (IOException e) {
+                    System.out.println("Caught exception: " + e.getMessage());
+                }
                 break;
             //---------------------------------------------------------------------------------------------
             case 6: //VMF

@@ -22,12 +22,16 @@
 
       <Label layoutX="510.0" layoutY="335.0" text="prog binaryzacji" />
       <TextField fx:id="progbinaryzacji" layoutX="510.0" layoutY="355.0" />
-      <Label layoutX="510.0" layoutY="105.0" text="lamana A" />
-      <TextField fx:id="lamanaA" layoutX="510.0" layoutY="122.0" />
-      <Label layoutX="510.0" layoutY="150.0" text="lamana B" />
-      <TextField fx:id="lamanaB" layoutX="510.0" layoutY="170.0" />
-      <Label layoutX="510.0" layoutY="195.0" text="lamana C" />
-      <TextField fx:id="lamanaC" layoutX="510.0" layoutY="215.0" />
+
+      <Label layoutX="510.0" layoutY="105.0" text="Punkty lamanej" />
+
+      <TextField fx:id="ax" layoutX="510.0" layoutY="125.0" prefHeight="25.0" prefWidth="71.0" promptText="x" />
+      <TextField fx:id="ay" layoutX="589.0" layoutY="125.0" prefHeight="25.0" prefWidth="71.0" promptText="y" />
+      <TextField fx:id="bx" layoutX="510.0" layoutY="170.0" prefHeight="25.0" prefWidth="71.0" promptText="x" />
+      <TextField fx:id="by" layoutX="589.0" layoutY="170.0" prefHeight="25.0" prefWidth="71.0" promptText="y" />
+      <TextField fx:id="cx" layoutX="510.0" layoutY="215.0" prefHeight="25.0" prefWidth="71.0" promptText="x" />
+      <TextField fx:id="cy" layoutX="589.0" layoutY="215.0" prefHeight="25.0" prefWidth="71.0" promptText="y" />
+
       <Label layoutX="510.0" layoutY="240.0" text="okno VMF" />
       <TextField fx:id="oknovmf" layoutX="510.0" layoutY="260.0" />
       <Label layoutX="510.0" layoutY="285.0" text="promien" />

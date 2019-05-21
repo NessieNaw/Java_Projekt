@@ -1,4 +1,5 @@
 package com.javafx.mavenproject;
+import com.javafx.mavenproject.morfologicalTransfLibrary.ImageUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,6 +9,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.imageio.ImageIO;
 import java.io.File;
 
 
@@ -15,11 +17,9 @@ public class StartWindow
 {
     @FXML private javafx.scene.control.Button closeButton;
     @FXML private javafx.scene.control.Button binarny;
-    @FXML private javafx.scene.control.Button szary;
-    @FXML private javafx.scene.control.Button kolorowy;
 
     public static int which = 0;
-    static File obraz;
+    public static File obraz;
 
     public int chooseFile() throws Exception
     {
@@ -68,10 +68,14 @@ public class StartWindow
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null)
         {
-            //stage.display(selectedFile);
             this.obraz = selectedFile;
-            System.out.println(obraz.getPath());
-            return 1;
+            try {
+                if ((ImageUtils.isGreyscale(ImageIO.read(StartWindow.obraz)) && which != 3) || (!ImageUtils.isGreyscale(ImageIO.read(StartWindow.obraz)) && which == 3))
+                    return 1;
+            }
+            catch(Exception e) {
+                System.out.println("Cannot open image.");
+            }
         }
         return 0;
     }

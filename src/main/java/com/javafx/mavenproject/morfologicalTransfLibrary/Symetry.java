@@ -1,8 +1,5 @@
 package com.javafx.mavenproject.morfologicalTransfLibrary;
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import javafx.scene.image.PixelReader;
 
 public class Symetry {
     public BufferedImage image;

@@ -77,7 +77,7 @@ public class GeodesicDistance {
         for (int i = 0; i < marker[0].length; i++ ) {
             for (int j = 0; j < marker.length; j++ ) {
                 if (marker[j][i] == 3) {
-                    dilated[j][i] = 233; //w oznaczonym miejscu ustawiamy wartosc koloru (jakąkolwiek)
+                    dilated[j][i] = 150; //w oznaczonym miejscu ustawiamy wartosc koloru (jakąkolwiek)
                     marker[j][i] = 1; //przywracamy poprzednia postac markera
                 }
             }

@@ -1,8 +1,6 @@
 package com.javafx.mavenproject.morfologicalTransfLibrary;
 
-import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
 import java.awt.*;
 
 public class CloseWithCircle {

@@ -3,9 +3,6 @@ package com.javafx.mavenproject.morfologicalTransfLibrary;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
-import static java.awt.image.BufferedImage.TYPE_BYTE_BINARY;
-import static java.awt.image.BufferedImage.TYPE_BYTE_GRAY;
-
 public class ImageUtils {
 
     public static int[][] convertTo2DArray(BufferedImage image) { //nie jestem w 100% pewna, czy to działa

@@ -17,12 +17,9 @@ public class StartWindow
 {
     @FXML private javafx.scene.control.Button closeButton;
     @FXML private javafx.scene.control.Button binarny;
-    @FXML private javafx.scene.control.Button szary;
-    @FXML private javafx.scene.control.Button kolorowy;
 
     public static int which = 0;
     public static File obraz;
-    public boolean isGreyscale = false;
 
     public int chooseFile() throws Exception
     {
@@ -71,7 +68,6 @@ public class StartWindow
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null)
         {
-            //stage.display(selectedFile);
             this.obraz = selectedFile;
             try {
                 if ((ImageUtils.isGreyscale(ImageIO.read(StartWindow.obraz)) && which != 3) || (!ImageUtils.isGreyscale(ImageIO.read(StartWindow.obraz)) && which == 3))
@@ -80,7 +76,6 @@ public class StartWindow
             catch(Exception e) {
                 System.out.println("Cannot open image.");
             }
-            //return 1;
         }
         return 0;
     }

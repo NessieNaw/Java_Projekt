@@ -42,8 +42,6 @@ public class Panel extends StartWindow
     @FXML private TextField odlX;
     @FXML private TextField odlY;
 
-    @FXML private javafx.scene.control.Button save;
-
     private int activeButton;
     private BufferedImage bufferedImage;
 
@@ -77,7 +75,6 @@ public class Panel extends StartWindow
             monochromatyzacja.setDisable(true);
             vmf.setDisable(true);
             odlegloscgeodezyjna.setDisable(true);
-           // zamknieciekolowe.setDisable(true);
 
         }if(which==3)
         {

@@ -6,6 +6,15 @@ import static com.javafx.mavenproject.morfologicalTransfLibrary.ImageUtils.conve
 
 public class VMF {
 
+    /**
+     * @param bufferedImage wczytane zdjęcie
+     * @param windowWidth szerokość okna maski
+     * @param windowHeight wysokość okna maski
+     * @return Wektorowy Filtr Medianowy
+     * Usuwa szum typu 'Salt And Pepper'
+     * Wielkość okna, którym odszumiamy przekazywana w parametrach metody
+     * Działa dla obrazów typu RGB
+     */
     public static BufferedImage vmfFilter(BufferedImage bufferedImage, int windowWidth, int windowHeight) {
         BufferedImage result = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
 
@@ -36,6 +45,12 @@ public class VMF {
         return result;
     }
 
+    /**
+     * @param R tablica wartości red
+     * @param G tablica wartości green
+     * @param B tablica wartości blue
+     * @return Metoda oblicza minimalną odległość w przestrzeni kolorów
+     */
     private static int calculateMinDistance(int[] R, int[] G, int[] B) {
         double distanceMin = 0.0;
         int minDistR = 0;

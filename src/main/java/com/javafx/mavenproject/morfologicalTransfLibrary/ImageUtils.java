@@ -4,8 +4,13 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 
 public class ImageUtils {
-
-    public static int[][] convertTo2DArray(BufferedImage image) { //nie jestem w 100% pewna, czy to działa
+    /**
+     * @param image wczytane zdjęcie
+     * @return Konwersja z typu BufferedImage do tablicy 2D
+     * Do zastosowania w przypadku obrazów RGB
+     * Nie działa przy obrazach monochromatycznych
+     */
+    public static int[][] convertTo2DArray(BufferedImage image) {
         final byte[] pixels = ((DataBufferByte) image.getRaster().getDataBuffer()).getData();
         int width = image.getWidth();
         int height = image.getHeight();
@@ -48,6 +53,12 @@ public class ImageUtils {
         return result;
     }
 
+    /**
+     * @param R int red
+     * @param G int green
+     * @param B int blue
+     * @return Konwertowanie wartości int na 3 kanałach do postaci jendej liczby typu int
+     */
     public static int convertFromRGBtoInt(int R, int G, int B) {
         int rgb = R;
         rgb = (rgb << 8) + G;
@@ -56,6 +67,11 @@ public class ImageUtils {
         return rgb;
     }
 
+    /**
+     * @param image wczytane zdjęcie
+     * @return Metoda sprawdza, czy zdjęcie jest monochromatyczne
+     * Na każdnym kanale sprawdza, czy wartość piksela jest taka sama
+     */
     public static boolean isGreyscale(BufferedImage image)
     {
         int pixel,red, green, blue;

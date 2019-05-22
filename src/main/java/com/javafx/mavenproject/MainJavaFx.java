@@ -16,8 +16,13 @@ public class MainJavaFx extends Application {
         launch(args);
     }
 
+    /**
+     * Metoda główna
+     * Umożliwia uruchomienie programu
+     * Program zaś umożliwia różnego rodzaju transformacje morfologiczne na wczytanym obrazie
+     * w zależności od tego jakiego typu obraz wczytamy
+     */
     public void start(Stage stage) throws Exception {
-
         log.info("Starting application");
 
         String fxmlFile = "/fxml/start_window.fxml";

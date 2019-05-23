@@ -56,7 +56,7 @@ public class Norm extends StartWindow
     }
     public static BufferedImage Normalize( BufferedImage bufferedImage,int axx, int ayy, int bxx, int byy, int cxx, int cyy )
     {
-        BufferedImage normalImage = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+        BufferedImage normalImage = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_INT_RGB);
         int[][] array2D = ImageUtils.convertTo2DArray(bufferedImage);
 
 

@@ -20,7 +20,7 @@ public class Panel extends StartWindow {
     public javafx.scene.control.Label label_go;
     @FXML
     private ImageView imageView; //Miejsce wyświetlania zdjęcia
-    @FXML
+  /*  @FXML
     private javafx.scene.control.Button otwarcie;
     @FXML
     private javafx.scene.control.Button zamkniecie;
@@ -36,6 +36,7 @@ public class Panel extends StartWindow {
     private javafx.scene.control.Button vmf;
     @FXML
     private javafx.scene.control.Button progowanie;
+    */
     @FXML
     private javafx.scene.control.Button kirch;
     @FXML
@@ -46,23 +47,23 @@ public class Panel extends StartWindow {
     private javafx.scene.control.Button odlegloscgeodezyjna;
     @FXML
     private javafx.scene.control.Button binaryzacja;
-    @FXML
-    private TextField progbinaryzacji;
-    @FXML
-    private TextField ax;
-    @FXML
-    private TextField ay;
-    @FXML
-    private TextField bx;
-    @FXML
-    private TextField by;
-    @FXML
-    private TextField cx;
-    @FXML
-    private TextField cy;
-
-    @FXML
-    private TextField oknovmf;
+//    @FXML
+//    private TextField progbinaryzacji;
+//    @FXML
+//    private TextField ax;
+//    @FXML
+//    private TextField ay;
+//    @FXML
+//    private TextField bx;
+//    @FXML
+//    private TextField by;
+//    @FXML
+//    private TextField cx;
+//    @FXML
+//    private TextField cy;
+//
+//    @FXML
+//    private TextField oknovmf;
     @FXML
     private TextField promien;
     @FXML
@@ -99,27 +100,27 @@ public class Panel extends StartWindow {
 
         if (which == 1) {
             System.out.printf("Opcja logiczna");
-            monochromatyzacja.setDisable(true);
-            normalizacja.setDisable(true);
-            vmf.setDisable(true);
-            progowanie.setDisable(true);
+//            monochromatyzacja.setDisable(true);
+//            normalizacja.setDisable(true);
+//            vmf.setDisable(true);
+//            progowanie.setDisable(true);
             kirch.setDisable(true);
             binaryzacja.setDisable(true);
             odbiciesymetryczne.setDisable(true);
         }
         if (which == 2) {
             System.out.printf("Opcja mono");
-            monochromatyzacja.setDisable(true);
-            vmf.setDisable(true);
+//            monochromatyzacja.setDisable(true);
+//            vmf.setDisable(true);
             odlegloscgeodezyjna.setDisable(true);
 
         }
         if (which == 3) {
             System.out.printf("Opcja kolorowa");
-            otwarcie.setDisable(true);
-            zamkniecie.setDisable(true);
-            erozja.setDisable(true);
-            dylacja.setDisable(true);
+//            otwarcie.setDisable(true);
+//            zamkniecie.setDisable(true);
+//            erozja.setDisable(true);
+//            dylacja.setDisable(true);
             zamknieciekolowe.setDisable(true);
             odlegloscgeodezyjna.setDisable(true);
         }
@@ -155,152 +156,152 @@ public class Panel extends StartWindow {
      * Obsługuje wyjątki w przypadku niepoprawnych parametrów
      */
     public void params() {
-        String progBin = progbinaryzacji.getText();
-        String axx = ax.getText();
-        String ayy = ay.getText();
-        String bxx = bx.getText();
-        String byy = by.getText();
-        String cxx = cx.getText();
-        String cyy = cy.getText();
+//        String progBin = progbinaryzacji.getText();
+//        String axx = ax.getText();
+//        String ayy = ay.getText();
+//        String bxx = bx.getText();
+//        String byy = by.getText();
+//        String cxx = cx.getText();
+//        String cyy = cy.getText();
         String pr = promien.getText();
         String x = odlX.getText();
         String y = odlY.getText();
 
         switch (activeButton) {
-            case 0: //otwarcie
-                try {
-                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
-                    this.bufferedImage = OpenAndClose.Opening(pixels, Integer.parseInt(pr));
-
-                    imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
-                } catch (IOException e) {
-                    System.out.println("Caught exception: " + e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Radius cannot be <= 0!");
-                }
-
-                break;
+//            case 0: //otwarcie
+//                try {
+//                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+//                    this.bufferedImage = OpenAndClose.Opening(pixels, Integer.parseInt(pr));
+//
+//                    imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
+//                } catch (IOException e) {
+//                    System.out.println("Caught exception: " + e.getMessage());
+//                } catch (Exception e) {
+//                    System.out.println("Radius cannot be <= 0!");
+//                }
+//
+//                break;
+//            //---------------------------------------------------------------------------------------------
+//            case 1: //zamkniecie
+//                try {
+//                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+//                    this.bufferedImage = OpenAndClose.Closing(pixels, Integer.parseInt(pr));
+//
+//                    imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
+//                } catch (IOException e) {
+//                    System.out.println("Caught exception: " + e.getMessage());
+//                } catch (Exception e) {
+//                    System.out.println("Radius cannot be <= 0!");
+//                }
+//
+//                break;
+//            //---------------------------------------------------------------------------------------------
+//            case 2: //monochromatyzacja
+//                try {
+//                    this.bufferedImage = Monochrome.ToMonochrome(ImageIO.read(StartWindow.obraz));
+//                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+//                    imageView.setImage(image);
+//                } catch (IOException e) {
+//                    System.out.println("Caught exception: " + e.getMessage());
+//                } catch (Exception e) {
+//                    System.out.println("Radius cannot be <= 0!");
+//                }
+//
+//                break;
+//            //---------------------------------------------------------------------------------------------
+//            case 3: //erozja
+//                try {
+//                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+//                    this.bufferedImage = OpenAndClose.erode(pixels, Integer.parseInt(pr));
+//
+//                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+//                    imageView.setImage(image);
+//                } catch (IOException e) {
+//                    System.out.println("Caught exception: " + e.getMessage());
+//                } catch (Exception e) {
+//                    System.out.println("Radius cannot be <= 0!");
+//                }
+//
+//                break;
+//            //---------------------------------------------------------------------------------------------
+//            case 4: //dylacja
+//                try {
+//                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
+//                    this.bufferedImage = OpenAndClose.dilate(pixels, Integer.parseInt(pr));
+//
+//                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+//                    imageView.setImage(image);
+//                } catch (IOException e) {
+//                    System.out.println("Caught exception: " + e.getMessage());
+//                } catch (Exception e) {
+//                    System.out.println("Radius cannot be <= 0!");
+//                }
+//
+//                break;
+//            //---------------------------------------------------------------------------------------------
+//            case 5: //normalizacja 3 punktami
+//                try {
+//                    Image ima = imageView.getImage();
+//                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
+//
+//                    Norm norm = new Norm(im);
+//
+//                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+//
+//                    int ax2 = Integer.parseInt(axx);
+//                    int ay2 = Integer.parseInt(ayy);
+//                    int bx2 = Integer.parseInt(bxx);
+//                    int by2 = Integer.parseInt(byy);
+//                    int cx2 = Integer.parseInt(cxx);
+//                    int cy2 = Integer.parseInt(cyy);
+//
+//                    norm.image = norm.Normalize(bufferedImage, ax2, ay2, bx2, by2, cx2, cy2);
+//
+//                    Image img = SwingFXUtils.toFXImage(norm.image, null);
+//                    imageView.setImage(img);
+//
+//                } catch (IOException e) {
+//                    System.out.println("Caught exception: " + e.getMessage());
+//                }
+//
+//                break;
+//            //---------------------------------------------------------------------------------------------
+//            case 6: //VMF
+//                try {
+//                    this.bufferedImage = VMF.vmfFilter(ImageIO.read(StartWindow.obraz), Integer.parseInt(x), Integer.parseInt(y));
+//
+//                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
+//                    imageView.setImage(image);
+//                } catch (IOException e) {
+//                    System.out.println("Caught exception: " + e.getMessage());
+//                } catch (Exception e) {
+//                    System.out.println("Parsing error, please set proper value");
+//                }
+//
+//                break;
+//            //---------------------------------------------------------------------------------------------
+//            case 7: //progowanie
+//                try {
+//                    Image ima = imageView.getImage();
+//                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
+//
+//                    Histogram hist = new Histogram(im);
+//
+//                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
+//
+//                    int verge = Integer.parseInt(progBin);
+//                    hist.image = hist.MonoWithVerge(bufferedImage, verge);
+//
+//                    Image img = SwingFXUtils.toFXImage(hist.image, null);
+//                    imageView.setImage(img);
+//
+//                } catch (IOException e) {
+//                    System.out.println("Caught exception: " + e.getMessage());
+//                }
+//
+//                break;
             //---------------------------------------------------------------------------------------------
-            case 1: //zamkniecie
-                try {
-                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
-                    this.bufferedImage = OpenAndClose.Closing(pixels, Integer.parseInt(pr));
-
-                    imageView.setImage(SwingFXUtils.toFXImage(this.bufferedImage, null));
-                } catch (IOException e) {
-                    System.out.println("Caught exception: " + e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Radius cannot be <= 0!");
-                }
-
-                break;
-            //---------------------------------------------------------------------------------------------
-            case 2: //monochromatyzacja
-                try {
-                    this.bufferedImage = Monochrome.ToMonochrome(ImageIO.read(StartWindow.obraz));
-                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
-                    imageView.setImage(image);
-                } catch (IOException e) {
-                    System.out.println("Caught exception: " + e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Radius cannot be <= 0!");
-                }
-
-                break;
-            //---------------------------------------------------------------------------------------------
-            case 3: //erozja
-                try {
-                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
-                    this.bufferedImage = OpenAndClose.erode(pixels, Integer.parseInt(pr));
-
-                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
-                    imageView.setImage(image);
-                } catch (IOException e) {
-                    System.out.println("Caught exception: " + e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Radius cannot be <= 0!");
-                }
-
-                break;
-            //---------------------------------------------------------------------------------------------
-            case 4: //dylacja
-                try {
-                    int[][] pixels = ImageUtils.convertTo2DArray(ImageIO.read(StartWindow.obraz));
-                    this.bufferedImage = OpenAndClose.dilate(pixels, Integer.parseInt(pr));
-
-                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
-                    imageView.setImage(image);
-                } catch (IOException e) {
-                    System.out.println("Caught exception: " + e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Radius cannot be <= 0!");
-                }
-
-                break;
-            //---------------------------------------------------------------------------------------------
-            case 5: //normalizacja 3 punktami
-                try {
-                    Image ima = imageView.getImage();
-                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
-
-                    Norm norm = new Norm(im);
-
-                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
-
-                    int ax2 = Integer.parseInt(axx);
-                    int ay2 = Integer.parseInt(ayy);
-                    int bx2 = Integer.parseInt(bxx);
-                    int by2 = Integer.parseInt(byy);
-                    int cx2 = Integer.parseInt(cxx);
-                    int cy2 = Integer.parseInt(cyy);
-
-                    norm.image = norm.Normalize(bufferedImage, ax2, ay2, bx2, by2, cx2, cy2);
-
-                    Image img = SwingFXUtils.toFXImage(norm.image, null);
-                    imageView.setImage(img);
-
-                } catch (IOException e) {
-                    System.out.println("Caught exception: " + e.getMessage());
-                }
-
-                break;
-            //---------------------------------------------------------------------------------------------
-            case 6: //VMF
-                try {
-                    this.bufferedImage = VMF.vmfFilter(ImageIO.read(StartWindow.obraz), Integer.parseInt(x), Integer.parseInt(y));
-
-                    Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
-                    imageView.setImage(image);
-                } catch (IOException e) {
-                    System.out.println("Caught exception: " + e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Parsing error, please set proper value");
-                }
-
-                break;
-            //---------------------------------------------------------------------------------------------
-            case 7: //progowanie
-                try {
-                    Image ima = imageView.getImage();
-                    BufferedImage im = SwingFXUtils.fromFXImage(ima, null);
-
-                    Histogram hist = new Histogram(im);
-
-                    BufferedImage bufferedImage = ImageIO.read(StartWindow.obraz);
-
-                    int verge = Integer.parseInt(progBin);
-                    hist.image = hist.MonoWithVerge(bufferedImage, verge);
-
-                    Image img = SwingFXUtils.toFXImage(hist.image, null);
-                    imageView.setImage(img);
-
-                } catch (IOException e) {
-                    System.out.println("Caught exception: " + e.getMessage());
-                }
-
-                break;
-            //---------------------------------------------------------------------------------------------
-            case 8: //filtracja Kirscha
+            case 1: //filtracja Kirscha
                 try {
                     bufferedImage = Kirsch.kirschFilter(ImageIO.read(StartWindow.obraz));
 
@@ -312,7 +313,7 @@ public class Panel extends StartWindow {
 
                 break;
             //---------------------------------------------------------------------------------------------
-            case 9: //zamkniecie elem. kołowym
+            case 2: //zamkniecie elem. kołowym
                 try {
                     CloseWithCircle withcircle = new CloseWithCircle(ImageIO.read(StartWindow.obraz));
 
@@ -326,7 +327,7 @@ public class Panel extends StartWindow {
 
                 break;
             //---------------------------------------------------------------------------------------------
-            case 10: //odbicie symetryczne
+            case 3: //odbicie symetryczne
                 System.out.println("In transformations");
                 try {
                     Symetry op = new Symetry(ImageIO.read(StartWindow.obraz));
@@ -340,7 +341,7 @@ public class Panel extends StartWindow {
 
                 break;
             //---------------------------------------------------------------------------------------------
-            case 11: //mapa odl geodezyjnej
+            case 4: //mapa odl geodezyjnej
                 try {
                     bufferedImage = GeodesicDistance.geodesicDistance(ImageIO.read(StartWindow.obraz), new Point(Integer.parseInt(x), Integer.parseInt(y)));
                     Image imga = SwingFXUtils.toFXImage(bufferedImage, null);
@@ -351,7 +352,7 @@ public class Panel extends StartWindow {
 
                 break;
             //---------------------------------------------------------------------------------------------
-            case 12: //binaryzacja
+            case 5: //binaryzacja
                 try {
                     this.bufferedImage = Monochrome.ToBinary(ImageIO.read(StartWindow.obraz));
                     Image image = SwingFXUtils.toFXImage(this.bufferedImage, null);
@@ -380,74 +381,74 @@ public class Panel extends StartWindow {
      * Każda metoda blokuje oraz czyści pola tekstowe panelu
      * Ustawia odpowiedni "aktywny" przycisk
      */
-    public void otwarcieOnClick(ActionEvent actionEvent) {
-        lockAllClearAll();
-        promien.setDisable(false);
-        this.activeButton = 0;
-    }
-
-    public void zamkniecieOnClick(ActionEvent actionEvent) {
-        lockAllClearAll();
-        promien.setDisable(false);
-        this.activeButton = 1;
-    }
-
-    public void monoOnClick(ActionEvent actionEvent) {
-        lockAllClearAll();
-        this.activeButton = 2;
-    }
-
-    public void erozjaOnClick(ActionEvent actionEvent) {
-        lockAllClearAll();
-        promien.setDisable(false);
-        this.activeButton = 3;
-    }
-
-    public void dylacjaOnClick(ActionEvent actionEvent) {
-        lockAllClearAll();
-        promien.setDisable(false);
-        this.activeButton = 4;
-    }
-
-    public void normOnClick(ActionEvent actionEvent) {
-        lockAllClearAll();
-        ax.setDisable(false);
-        ay.setDisable(false);
-        bx.setDisable(false);
-        by.setDisable(false);
-        cx.setDisable(false);
-        cy.setDisable(false);
-        this.activeButton = 5;
-    }
-
-    public void vmfOnClick(ActionEvent actionEvent) {
-        lockAllClearAll();
-        odlX.setDisable(false);
-        odlY.setDisable(false);
-        this.label_go.setText("wielkosc okna");
-        this.activeButton = 6;
-    }
-
-    public void progowanieOnClick(ActionEvent actionEvent) {
-        lockAllClearAll();
-        progbinaryzacji.setDisable(false);
-        this.activeButton = 7;
-    }
+//    public void otwarcieOnClick(ActionEvent actionEvent) {
+//        lockAllClearAll();
+//        promien.setDisable(false);
+//        this.activeButton = 0;
+//    }
+//
+//    public void zamkniecieOnClick(ActionEvent actionEvent) {
+//        lockAllClearAll();
+//        promien.setDisable(false);
+//        this.activeButton = 1;
+//    }
+//
+//    public void monoOnClick(ActionEvent actionEvent) {
+//        lockAllClearAll();
+//        this.activeButton = 2;
+//    }
+//
+//    public void erozjaOnClick(ActionEvent actionEvent) {
+//        lockAllClearAll();
+//        promien.setDisable(false);
+//        this.activeButton = 3;
+//    }
+//
+//    public void dylacjaOnClick(ActionEvent actionEvent) {
+//        lockAllClearAll();
+//        promien.setDisable(false);
+//        this.activeButton = 4;
+//    }
+//
+//    public void normOnClick(ActionEvent actionEvent) {
+//        lockAllClearAll();
+//        ax.setDisable(false);
+//        ay.setDisable(false);
+//        bx.setDisable(false);
+//        by.setDisable(false);
+//        cx.setDisable(false);
+//        cy.setDisable(false);
+//        this.activeButton = 5;
+//    }
+//
+//    public void vmfOnClick(ActionEvent actionEvent) {
+//        lockAllClearAll();
+//        odlX.setDisable(false);
+//        odlY.setDisable(false);
+//        this.label_go.setText("wielkosc okna");
+//        this.activeButton = 6;
+//    }
+//
+//    public void progowanieOnClick(ActionEvent actionEvent) {
+//        lockAllClearAll();
+//        progbinaryzacji.setDisable(false);
+//        this.activeButton = 7;
+//    }
 
     public void kirchOnClick(ActionEvent actionEvent) {
         lockAllClearAll();
-        this.activeButton = 8;
+        this.activeButton = 1;
     }
 
     public void zamkKoloOnClick(ActionEvent actionEvent) {
         lockAllClearAll();
         promien.setDisable(false);
-        this.activeButton = 9;
+        this.activeButton = 2;
     }
 
     public void odbicieOnClick(ActionEvent actionEvent) {
         lockAllClearAll();
-        this.activeButton = 10;
+        this.activeButton = 3;
     }
 
     public void odlGeoOnClick(ActionEvent actionEvent) {
@@ -455,13 +456,13 @@ public class Panel extends StartWindow {
         this.label_go.setText("odl. geodezyjna");
         odlX.setDisable(false);
         odlY.setDisable(false);
-        this.activeButton = 11;
+        this.activeButton = 4;
 
     }
 
     public void binaryzacjaOnClick(ActionEvent actionEvent) {
         lockAllClearAll();
-        this.activeButton = 12;
+        this.activeButton = 5;
     }
 
     /**
@@ -469,26 +470,26 @@ public class Panel extends StartWindow {
      * w trakcie zamieniania przekształceń
      */
     private void lockAllClearAll() {
-        progbinaryzacji.setDisable(true);
-        ax.setDisable(true);
-        ay.setDisable(true);
-        bx.setDisable(true);
-        by.setDisable(true);
-        cx.setDisable(true);
-        cy.setDisable(true);
-        oknovmf.setDisable(true);
+//        progbinaryzacji.setDisable(true);
+//        ax.setDisable(true);
+//        ay.setDisable(true);
+//        bx.setDisable(true);
+//        by.setDisable(true);
+//        cx.setDisable(true);
+//        cy.setDisable(true);
+//        oknovmf.setDisable(true);
         promien.setDisable(true);
         odlX.setDisable(true);
         odlY.setDisable(true);
 
-        progbinaryzacji.clear();
-        ax.setDisable(true);
-        ay.setDisable(true);
-        bx.setDisable(true);
-        by.setDisable(true);
-        cx.setDisable(true);
-        cy.setDisable(true);
-        oknovmf.clear();
+//        progbinaryzacji.clear();
+//        ax.setDisable(true);
+//        ay.setDisable(true);
+//        bx.setDisable(true);
+//        by.setDisable(true);
+//        cx.setDisable(true);
+//        cy.setDisable(true);
+//        oknovmf.clear();
         promien.clear();
         odlX.clear();
         odlY.clear();

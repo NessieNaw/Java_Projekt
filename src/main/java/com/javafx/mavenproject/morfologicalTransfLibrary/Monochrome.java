@@ -42,6 +42,7 @@ public class Monochrome {
      * @param bufferedImage wczytane zdjęcie
      * @return Binaryzacja zdjęcia stałym progiem
      */
+    //PROGOWANIE ZA POMOCĄ MAKSMALNEJ ENTROPII
     public  static BufferedImage ToBinary(BufferedImage bufferedImage) {
         BufferedImage binaryImage = new BufferedImage(bufferedImage.getWidth(), bufferedImage.getHeight(), BufferedImage.TYPE_BYTE_GRAY);
 
@@ -62,7 +63,7 @@ public class Monochrome {
         return binaryImage;
     }
     /**
-    //histogram - ile jest pikseli w danej skali osobno dla r g  b*/
+    //histogram - ile jest pikseli w danej skali */
     private static int[] histogram( BufferedImage bufferedImage){
         int[] tab = new int[256];
         for(int i =0; i<256;i++)

@@ -1,7 +1,8 @@
 package com.javafx.mavenproject.morfologicalTransfLibrary;
 
 import com.javafx.mavenproject.StartWindow;
-
+import java.util.Arrays;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Histogram {
@@ -24,7 +25,6 @@ public class Histogram {
         for (int x = 0; x < bufferedImage.getWidth(); x++)
             for (int y = 0; y < bufferedImage.getHeight(); y++) {
                 int pixel = array2D[y][x];
-
                 if ((pixel & 0xff) > verge) {
                     binaryImage.setRGB(x, y, 0xffffff);
                 } else
@@ -33,4 +33,6 @@ public class Histogram {
         StartWindow.which = 1;
         return binaryImage;
     }
+
+
 }

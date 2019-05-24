@@ -33,14 +33,14 @@ public class GeodesicDistance {
             }
         }
 
-        int[][] marker = new int[width][height];
+        int[][] mask = new int[width][height];
 
-        marker[point.x][point.y] = 1;
+        mask[point.x][point.y] = 1;
 
         int k = 0;
         while (k < (height + width) * 3) {
-            marker = dilateArray2DtoGeoMap(marker, dilated);
-            marker = logicalAND(marker, binary);
+            mask = dilateArray2DtoGeoMap(mask, dilated, ((k/2) % 255));
+            mask = logicalAND(mask, binary);
             k++;
         }
 
@@ -79,7 +79,7 @@ public class GeodesicDistance {
      * @return rezultat dylacji
      * Przeprowadza dylację na tablicy 2D
      */
-    private static int[][] dilateArray2DtoGeoMap(int[][] marker, int[][] dilated) {
+    private static int[][] dilateArray2DtoGeoMap(int[][] marker, int[][] dilated, int light) {
         for (int i = 0; i < marker[0].length; i++) {
             for (int j = 0; j < marker.length; j++) {
                 if (marker[j][i] == 1) {
@@ -98,7 +98,7 @@ public class GeodesicDistance {
         for (int i = 0; i < marker[0].length; i++) {
             for (int j = 0; j < marker.length; j++) {
                 if (marker[j][i] == 3) {
-                    dilated[j][i] = 150; //w oznaczonym miejscu ustawiamy wartosc koloru (jakąkolwiek)
+                    dilated[j][i] = light << 16; //w oznaczonym miejscu ustawiamy wartosc koloru (jakąkolwiek, w moim przypadku dla lepszej widoczności ustawiam kolor czerwony
                     marker[j][i] = 1; //przywracamy poprzednia postac markera
                 }
             }

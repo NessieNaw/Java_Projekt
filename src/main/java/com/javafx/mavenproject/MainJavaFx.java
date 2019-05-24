@@ -7,7 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * Zadane funkcje znajdują się w klasach: CloseWithCircle, GeodesicDystance, Kirsch, Monochrome, Symetry
+ */
 public class MainJavaFx extends Application {
 
     private static final Logger log = LoggerFactory.getLogger(MainJavaFx.class);
